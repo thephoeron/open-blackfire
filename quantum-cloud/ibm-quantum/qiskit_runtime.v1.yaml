@@ -1,0 +1,1453 @@
+openapi: 3.0.0
+info:
+  title: IBM Quantum Qiskit Runtime API
+  version: '1.0'
+  description: Push computation close to the quantum device.
+servers:
+  - url: /
+tags:
+  - name: Programs
+    description: Endpoints related to Qiskit Runtime programs
+  - name: Jobs
+    description: Endpoints related to running programs
+  - name: Devices
+    description: Endpoints related to quantum device information
+  - name: Auth
+    description: Endpoints related to authentication
+security:
+  - IBMQuantumExperienceAccessToken: []
+  - IBMQuantumExperienceAuth: []
+  - IBMCloudAuth: []
+    Service-CRN: []
+  - IBMCloudAPIKey: []
+    Service-CRN: []
+paths:
+  /devices:
+    get:
+      tags:
+        - Devices
+      summary: List your devices
+      operationId: list_devices
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DevicesResponse'
+              examples:
+                sampleDevicesResponse:
+                  $ref: '#/components/examples/devicesResponseExample'
+      description: Returns a list of all the devices your service instance has access to.
+  /devices/{id}/properties:
+    get:
+      tags:
+        - Devices
+      summary: Get device properties
+      operationId: get_device_properties
+      parameters:
+        - schema:
+            type: string
+            pattern: '.*'
+            minLength: 1
+            maxLength: 500
+          name: id
+          description: Identifier of an available device
+          in: path
+          required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DevicePropertiesResponse'
+              examples:
+                sampleDevicePropertiesResponse:
+                  value: {"backend_name":"test_rome","backend_version":"1.3.24","gates":[{"gate":"id","name":"id0","parameters":[{"date":"2021-07-05T06:44:33Z","name":"gate_error","unit":"","value":0.0002448508047161394},{"date":"2021-07-05T12:18:02Z","name":"gate_length","unit":"ns","value":35.55555555555556}],"qubits":[0]},{"gate":"id","name":"id1","parameters":[{"date":"2021-07-05T06:44:33Z","name":"gate_error","unit":"","value":0.00027210394592247896},{"date":"2021-07-05T12:18:02Z","name":"gate_length","unit":"ns","value":35.55555555555556}],"qubits":[1]},{"gate":"id","name":"id2","parameters":[{"date":"2021-07-05T06:44:33Z","name":"gate_error","unit":"","value":0.0003387889648653272},{"date":"2021-07-05T12:18:02Z","name":"gate_length","unit":"ns","value":35.55555555555556}],"qubits":[2]},{"gate":"id","name":"id3","parameters":[{"date":"2021-07-05T06:44:33Z","name":"gate_error","unit":"","value":0.0002798062785893913},{"date":"2021-07-05T12:18:02Z","name":"gate_length","unit":"ns","value":35.55555555555556}],"qubits":[3]},{"gate":"id","name":"id4","parameters":[{"date":"2021-07-05T06:44:33Z","name":"gate_error","unit":"","value":0.0007014941280759136},{"date":"2021-07-05T12:18:02Z","name":"gate_length","unit":"ns","value":35.55555555555556}],"qubits":[4]},{"gate":"rz","name":"rz0","parameters":[{"date":"2021-07-05T12:18:02Z","name":"gate_error","unit":"","value":0},{"date":"2021-07-05T12:18:02Z","name":"gate_length","unit":"ns","value":0}],"qubits":[0]},{"gate":"rz","name":"rz1","parameters":[{"date":"2021-07-05T12:18:02Z","name":"gate_error","unit":"","value":0},{"date":"2021-07-05T12:18:02Z","name":"gate_length","unit":"ns","value":0}],"qubits":[1]},{"gate":"rz","name":"rz2","parameters":[{"date":"2021-07-05T12:18:02Z","name":"gate_error","unit":"","value":0},{"date":"2021-07-05T12:18:02Z","name":"gate_length","unit":"ns","value":0}],"qubits":[2]},{"gate":"rz","name":"rz3","parameters":[{"date":"2021-07-05T12:18:02Z","name":"gate_error","unit":"","value":0},{"date":"2021-07-05T12:18:02Z","name":"gate_length","unit":"ns","value":0}],"qubits":[3]},{"gate":"rz","name":"rz4","parameters":[{"date":"2021-07-05T12:18:02Z","name":"gate_error","unit":"","value":0},{"date":"2021-07-05T12:18:02Z","name":"gate_length","unit":"ns","value":0}],"qubits":[4]},{"gate":"sx","name":"sx0","parameters":[{"date":"2021-07-05T06:44:33Z","name":"gate_error","unit":"","value":0.0002448508047161394},{"date":"2021-07-05T12:18:02Z","name":"gate_length","unit":"ns","value":35.55555555555556}],"qubits":[0]},{"gate":"sx","name":"sx1","parameters":[{"date":"2021-07-05T06:44:33Z","name":"gate_error","unit":"","value":0.00027210394592247896},{"date":"2021-07-05T12:18:02Z","name":"gate_length","unit":"ns","value":35.55555555555556}],"qubits":[1]},{"gate":"sx","name":"sx2","parameters":[{"date":"2021-07-05T06:44:33Z","name":"gate_error","unit":"","value":0.0003387889648653272},{"date":"2021-07-05T12:18:02Z","name":"gate_length","unit":"ns","value":35.55555555555556}],"qubits":[2]},{"gate":"sx","name":"sx3","parameters":[{"date":"2021-07-05T06:44:33Z","name":"gate_error","unit":"","value":0.0002798062785893913},{"date":"2021-07-05T12:18:02Z","name":"gate_length","unit":"ns","value":35.55555555555556}],"qubits":[3]},{"gate":"sx","name":"sx4","parameters":[{"date":"2021-07-05T06:44:33Z","name":"gate_error","unit":"","value":0.0007014941280759136},{"date":"2021-07-05T12:18:02Z","name":"gate_length","unit":"ns","value":35.55555555555556}],"qubits":[4]},{"gate":"x","name":"x0","parameters":[{"date":"2021-07-05T06:44:33Z","name":"gate_error","unit":"","value":0.0002448508047161394},{"date":"2021-07-05T12:18:02Z","name":"gate_length","unit":"ns","value":35.55555555555556}],"qubits":[0]},{"gate":"x","name":"x1","parameters":[{"date":"2021-07-05T06:44:33Z","name":"gate_error","unit":"","value":0.00027210394592247896},{"date":"2021-07-05T12:18:02Z","name":"gate_length","unit":"ns","value":35.55555555555556}],"qubits":[1]},{"gate":"x","name":"x2","parameters":[{"date":"2021-07-05T06:44:33Z","name":"gate_error","unit":"","value":0.0003387889648653272},{"date":"2021-07-05T12:18:02Z","name":"gate_length","unit":"ns","value":35.55555555555556}],"qubits":[2]},{"gate":"x","name":"x3","parameters":[{"date":"2021-07-05T06:44:33Z","name":"gate_error","unit":"","value":0.0002798062785893913},{"date":"2021-07-05T12:18:02Z","name":"gate_length","unit":"ns","value":35.55555555555556}],"qubits":[3]},{"gate":"x","name":"x4","parameters":[{"date":"2021-07-05T06:44:33Z","name":"gate_error","unit":"","value":0.0007014941280759136},{"date":"2021-07-05T12:18:02Z","name":"gate_length","unit":"ns","value":35.55555555555556}],"qubits":[4]},{"gate":"cx","name":"cx3_4","parameters":[{"date":"2021-07-05T08:13:43Z","name":"gate_error","unit":"","value":0.01209269215862896},{"date":"2021-07-02T12:18:02Z","name":"gate_length","unit":"ns","value":476.4444444444444}],"qubits":[3,4]},{"gate":"cx","name":"cx4_3","parameters":[{"date":"2021-07-05T08:13:43Z","name":"gate_error","unit":"","value":0.01209269215862896},{"date":"2021-07-02T12:18:02Z","name":"gate_length","unit":"ns","value":512}],"qubits":[4,3]},{"gate":"cx","name":"cx3_2","parameters":[{"date":"2021-07-05T08:10:30Z","name":"gate_error","unit":"","value":0.008707373154178105},{"date":"2021-07-02T12:18:02Z","name":"gate_length","unit":"ns","value":341.3333333333333}],"qubits":[3,2]},{"gate":"cx","name":"cx2_3","parameters":[{"date":"2021-07-05T08:10:30Z","name":"gate_error","unit":"","value":0.008707373154178105},{"date":"2021-07-02T12:18:02Z","name":"gate_length","unit":"ns","value":376.88888888888886}],"qubits":[2,3]},{"gate":"cx","name":"cx1_2","parameters":[{"date":"2021-07-05T08:05:34Z","name":"gate_error","unit":"","value":0.01902233362337591},{"date":"2021-07-02T12:18:02Z","name":"gate_length","unit":"ns","value":1109.3333333333333}],"qubits":[1,2]},{"gate":"cx","name":"cx2_1","parameters":[{"date":"2021-07-05T08:05:34Z","name":"gate_error","unit":"","value":0.01902233362337591},{"date":"2021-07-02T12:18:02Z","name":"gate_length","unit":"ns","value":1144.888888888889}],"qubits":[2,1]},{"gate":"cx","name":"cx0_1","parameters":[{"date":"2021-07-05T07:27:21Z","name":"gate_error","unit":"","value":0.006104727490691075},{"date":"2021-07-02T12:18:02Z","name":"gate_length","unit":"ns","value":320}],"qubits":[0,1]},{"gate":"cx","name":"cx1_0","parameters":[{"date":"2021-07-05T07:27:21Z","name":"gate_error","unit":"","value":0.006104727490691075},{"date":"2021-07-02T12:18:02Z","name":"gate_length","unit":"ns","value":355.55555555555554}],"qubits":[1,0]},{"gate":"reset","name":"reset0","parameters":[{"date":"2021-07-05T12:18:02Z","name":"gate_length","unit":"ns","value":3520}],"qubits":[0]},{"gate":"reset","name":"reset1","parameters":[{"date":"2021-07-05T12:18:02Z","name":"gate_length","unit":"ns","value":3520}],"qubits":[1]},{"gate":"reset","name":"reset2","parameters":[{"date":"2021-07-05T12:18:02Z","name":"gate_length","unit":"ns","value":3520}],"qubits":[2]},{"gate":"reset","name":"reset3","parameters":[{"date":"2021-07-05T12:18:02Z","name":"gate_length","unit":"ns","value":3520}],"qubits":[3]},{"gate":"reset","name":"reset4","parameters":[{"date":"2021-07-05T12:18:02Z","name":"gate_length","unit":"ns","value":3520}],"qubits":[4]}],"general":[{"date":"2021-07-05T12:18:02Z","name":"jq_01","unit":"GHz","value":0.0013372089376152759},{"date":"2021-07-05T12:18:02Z","name":"zz_01","unit":"GHz","value":-0.00003637728507512319},{"date":"2021-07-05T12:18:02Z","name":"jq_12","unit":"GHz","value":0.0013171912974961383},{"date":"2021-07-05T12:18:02Z","name":"zz_12","unit":"GHz","value":-0.000052536503588451545},{"date":"2021-07-05T12:18:02Z","name":"jq_23","unit":"GHz","value":0.0016605412148178267},{"date":"2021-07-05T12:18:02Z","name":"zz_23","unit":"GHz","value":-0.0000819573944865251},{"date":"2021-07-05T12:18:02Z","name":"jq_34","unit":"GHz","value":0.0015015244269155484},{"date":"2021-07-05T12:18:02Z","name":"zz_34","unit":"GHz","value":-0.00008449922279710206}],"last_update_date":"2021-07-05T12:52:19Z","qubits":[[{"date":"2021-07-05T06:41:57Z","name":"T1","unit":"us","value":97.03598857550222},{"date":"2021-07-05T06:05:06Z","name":"T2","unit":"us","value":66.65681862753586},{"date":"2021-07-05T12:18:02Z","name":"frequency","unit":"GHz","value":4.968701124164304},{"date":"2021-07-05T12:18:02Z","name":"anharmonicity","unit":"GHz","value":-0.3376275901130698},{"date":"2021-07-05T05:29:29Z","name":"readout_error","unit":"","value":0.0232},{"date":"2021-07-05T05:29:29Z","name":"prob_meas0_prep1","unit":"","value":0.031399999999999983},{"date":"2021-07-05T05:29:29Z","name":"prob_meas1_prep0","unit":"","value":0.015},{"date":"2021-07-05T05:29:29Z","name":"readout_length","unit":"ns","value":3022.222222222222}],[{"date":"2021-07-05T06:50:29Z","name":"T1","unit":"us","value":105.20382514288175},{"date":"2021-07-05T06:42:02Z","name":"T2","unit":"us","value":87.48573724157141},{"date":"2021-07-05T12:18:02Z","name":"frequency","unit":"GHz","value":4.770103698982546},{"date":"2021-07-05T12:18:02Z","name":"anharmonicity","unit":"GHz","value":-0.32741865550549987},{"date":"2021-07-05T05:29:29Z","name":"readout_error","unit":"","value":0.03620000000000001},{"date":"2021-07-05T05:29:29Z","name":"prob_meas0_prep1","unit":"","value":0.040000000000000036},{"date":"2021-07-05T05:29:29Z","name":"prob_meas1_prep0","unit":"","value":0.0324},{"date":"2021-07-05T05:29:29Z","name":"readout_length","unit":"ns","value":3022.222222222222}],[{"date":"2021-07-05T06:41:57Z","name":"T1","unit":"us","value":64.82252288673146},{"date":"2021-07-05T06:05:06Z","name":"T2","unit":"us","value":72.52724000942999},{"date":"2021-07-05T12:18:02Z","name":"frequency","unit":"GHz","value":5.0151628503963455},{"date":"2021-07-05T12:18:02Z","name":"anharmonicity","unit":"GHz","value":-0.3377245211681405},{"date":"2021-07-05T05:29:29Z","name":"readout_error","unit":"","value":0.027200000000000002},{"date":"2021-07-05T05:29:29Z","name":"prob_meas0_prep1","unit":"","value":0.03620000000000001},{"date":"2021-07-05T05:29:29Z","name":"prob_meas1_prep0","unit":"","value":0.0182},{"date":"2021-07-05T05:29:29Z","name":"readout_length","unit":"ns","value":3022.222222222222}],[{"date":"2021-07-05T06:50:29Z","name":"T1","unit":"us","value":104.84874439033118},{"date":"2021-07-05T06:42:02Z","name":"T2","unit":"us","value":129.73557126090668},{"date":"2021-07-05T12:18:02Z","name":"frequency","unit":"GHz","value":5.259275396316249},{"date":"2021-07-05T12:18:02Z","name":"anharmonicity","unit":"GHz","value":-0.332820867284168},{"date":"2021-07-05T05:29:29Z","name":"readout_error","unit":"","value":0.01970000000000005},{"date":"2021-07-05T05:29:29Z","name":"prob_meas0_prep1","unit":"","value":0.02980000000000005},{"date":"2021-07-05T05:29:29Z","name":"prob_meas1_prep0","unit":"","value":0.0096},{"date":"2021-07-05T05:29:29Z","name":"readout_length","unit":"ns","value":3022.222222222222}],[{"date":"2021-07-05T06:41:57Z","name":"T1","unit":"us","value":64.22956352722753},{"date":"2021-07-05T06:05:06Z","name":"T2","unit":"us","value":69.23261463653839},{"date":"2021-07-05T12:18:02Z","name":"frequency","unit":"GHz","value":4.997550159631257},{"date":"2021-07-05T12:18:02Z","name":"anharmonicity","unit":"GHz","value":-0.33936095018213536},{"date":"2021-07-05T05:29:29Z","name":"readout_error","unit":"","value":0.023600000000000065},{"date":"2021-07-05T05:29:29Z","name":"prob_meas0_prep1","unit":"","value":0.03180000000000005},{"date":"2021-07-05T05:29:29Z","name":"prob_meas1_prep0","unit":"","value":0.0154},{"date":"2021-07-05T05:29:29Z","name":"readout_length","unit":"ns","value":3022.222222222222}]]}
+      description: Returns the properties for the specified device.
+  /devices/{id}/configuration:
+    get:
+      tags:
+        - Devices
+      summary: Get device configuration
+      operationId: get_device_configuration
+      parameters:
+        - schema:
+            type: string
+            pattern: '.*'
+            minLength: 1
+            maxLength: 500
+          name: id
+          description: Identifier of an available device
+          in: path
+          required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeviceConfigurationResponse'
+              examples:
+                sampleDeviceConfigurationResponse:
+                  value: {"acquisition_latency":[],"allow_q_object":true,"backend_name":"test_rome","backend_version":"1.3.24","basis_gates":["cx","id","rz","sx","x"],"channels":{"acquire0":{"operates":{"qubits":[0]},"purpose":"acquire","type":"acquire"},"acquire1":{"operates":{"qubits":[1]},"purpose":"acquire","type":"acquire"},"acquire2":{"operates":{"qubits":[2]},"purpose":"acquire","type":"acquire"},"acquire3":{"operates":{"qubits":[3]},"purpose":"acquire","type":"acquire"},"acquire4":{"operates":{"qubits":[4]},"purpose":"acquire","type":"acquire"},"d0":{"operates":{"qubits":[0]},"purpose":"drive","type":"drive"},"d1":{"operates":{"qubits":[1]},"purpose":"drive","type":"drive"},"d2":{"operates":{"qubits":[2]},"purpose":"drive","type":"drive"},"d3":{"operates":{"qubits":[3]},"purpose":"drive","type":"drive"},"d4":{"operates":{"qubits":[4]},"purpose":"drive","type":"drive"},"m0":{"operates":{"qubits":[0]},"purpose":"measure","type":"measure"},"m1":{"operates":{"qubits":[1]},"purpose":"measure","type":"measure"},"m2":{"operates":{"qubits":[2]},"purpose":"measure","type":"measure"},"m3":{"operates":{"qubits":[3]},"purpose":"measure","type":"measure"},"m4":{"operates":{"qubits":[4]},"purpose":"measure","type":"measure"},"u0":{"operates":{"qubits":[0,1]},"purpose":"cross-resonance","type":"control"},"u1":{"operates":{"qubits":[1,0]},"purpose":"cross-resonance","type":"control"},"u2":{"operates":{"qubits":[1,2]},"purpose":"cross-resonance","type":"control"},"u3":{"operates":{"qubits":[2,1]},"purpose":"cross-resonance","type":"control"},"u4":{"operates":{"qubits":[2,3]},"purpose":"cross-resonance","type":"control"},"u5":{"operates":{"qubits":[3,2]},"purpose":"cross-resonance","type":"control"},"u6":{"operates":{"qubits":[3,4]},"purpose":"cross-resonance","type":"control"},"u7":{"operates":{"qubits":[4,3]},"purpose":"cross-resonance","type":"control"}},"conditional":false,"conditional_latency":[],"coupling_map":[[0,1],[1,0],[1,2],[2,1],[2,3],[3,2],[3,4],[4,3]],"credits_required":true,"default_rep_delay":250,"description":"5 qubit device","discriminators":["quadratic_discriminator","linear_discriminator","hw_qmfk"],"dt":0.2222222222222222,"dtm":0.2222222222222222,"dynamic_reprate_enabled":true,"gates":[{"coupling_map":[[0],[1],[2],[3],[4]],"name":"id","parameters":[],"qasm_def":"gate id q { U(0, 0, 0) q; }"},{"coupling_map":[[0],[1],[2],[3],[4]],"name":"rz","parameters":["theta"],"qasm_def":"gate rz(theta) q { U(0, 0, theta) q; }"},{"coupling_map":[[0],[1],[2],[3],[4]],"name":"sx","parameters":[],"qasm_def":"gate sx q { U(pi/2, 3*pi/2, pi/2) q; }"},{"coupling_map":[[0],[1],[2],[3],[4]],"name":"x","parameters":[],"qasm_def":"gate x q { U(pi, 0, pi) q; }"},{"coupling_map":[[0,1],[1,0],[1,2],[2,1],[2,3],[3,2],[3,4],[4,3]],"name":"cx","parameters":[],"qasm_def":"gate cx q0, q1 { CX q0, q1; }"},{"coupling_map":[],"name":"reset","parameters":null,"qasm_def":null}],"hamiltonian":{"description":"Qubits are modeled as Duffing oscillators. In this case, the system includes higher energy states, i.e. not just |0> and |1>. The Pauli operators are generalized via the following set of transformations:\n\n$(\\mathbb{I}-\\sigma_{i}^z)/2 \\rightarrow O_i \\equiv b^\\dagger_{i} b_{i}$,\n\n$\\sigma_{+} \\rightarrow b^\\dagger$,\n\n$\\sigma_{-} \\rightarrow b$,\n\n$\\sigma_{i}^X \\rightarrow b^\\dagger_{i} + b_{i}$.\n\nQubits are coupled through resonator buses. The provided Hamiltonian has been projected into the zero excitation subspace of the resonator buses leading to an effective qubit-qubit flip-flop interaction. The qubit resonance frequencies in the Hamiltonian are the cavity dressed frequencies and not exactly what is returned by the backend defaults, which also includes the dressing due to the qubit-qubit interactions.\n\nQuantities are returned in angular frequencies, with units 2*pi*GHz.\n\nWARNING: Currently not all system Hamiltonian information is available to the public, missing values have been replaced with 0.\n","h_latex":"\\begin{align} \\mathcal{H}/\\hbar = & \\sum_{i=0}^{4}\\left(\\frac{\\omega_{q,i}}{2}(\\mathbb{I}-\\sigma_i^{z})+\\frac{\\Delta_{i}}{2}(O_i^2-O_i)+\\Omega_{d,i}D_i(t)\\sigma_i^{X}\\right) \\\\ & + J_{0,1}(\\sigma_{0}^{+}\\sigma_{1}^{-}+\\sigma_{0}^{-}\\sigma_{1}^{+}) + J_{1,2}(\\sigma_{1}^{+}\\sigma_{2}^{-}+\\sigma_{1}^{-}\\sigma_{2}^{+}) + J_{2,3}(\\sigma_{2}^{+}\\sigma_{3}^{-}+\\sigma_{2}^{-}\\sigma_{3}^{+}) + J_{3,4}(\\sigma_{3}^{+}\\sigma_{4}^{-}+\\sigma_{3}^{-}\\sigma_{4}^{+}) \\\\ & + \\Omega_{d,0}(U_{0}^{(0,1)}(t))\\sigma_{0}^{X} + \\Omega_{d,1}(U_{1}^{(1,0)}(t)+U_{2}^{(1,2)}(t))\\sigma_{1}^{X} \\\\ & + \\Omega_{d,2}(U_{3}^{(2,1)}(t)+U_{4}^{(2,3)}(t))\\sigma_{2}^{X} + \\Omega_{d,3}(U_{6}^{(3,4)}(t)+U_{5}^{(3,2)}(t))\\sigma_{3}^{X} \\\\ & + \\Omega_{d,4}(U_{7}^{(4,3)}(t))\\sigma_{4}^{X} \\\\ \\end{align}","h_str":["_SUM[i,0,4,wq{i}/2*(I{i}-Z{i})]","_SUM[i,0,4,delta{i}/2*O{i}*O{i}]","_SUM[i,0,4,-delta{i}/2*O{i}]","_SUM[i,0,4,omegad{i}*X{i}||D{i}]","jq0q1*Sp0*Sm1","jq0q1*Sm0*Sp1","jq1q2*Sp1*Sm2","jq1q2*Sm1*Sp2","jq2q3*Sp2*Sm3","jq2q3*Sm2*Sp3","jq3q4*Sp3*Sm4","jq3q4*Sm3*Sp4","omegad1*X0||U0","omegad0*X1||U1","omegad2*X1||U2","omegad1*X2||U3","omegad3*X2||U4","omegad4*X3||U6","omegad2*X3||U5","omegad3*X4||U7"],"osc":{},"qub":{"0":3,"1":3,"2":3,"3":3,"4":3},"vars":{"delta0":-2.121376713496892,"delta1":-2.0572320855686512,"delta2":-2.1219857492779215,"delta3":-2.091175183242651,"delta4":-2.1322677360148967,"jq0q1":0.008401931549453526,"jq1q2":0.00827615700717255,"jq2q3":0.01043348816290951,"jq3q4":0.009434356217567021,"omegad0":1.1180899684563905,"omegad1":1.5965937469694844,"omegad2":0.9313930823895185,"omegad3":1.02359978967771,"omegad4":0.9199181427404678,"wq0":31.219269899115847,"wq1":29.97144547517013,"wq2":31.511197534723212,"wq3":33.04500189654535,"wq4":31.400533734888114}},"local":false,"max_experiments":900,"max_shots":8192,"meas_kernels":["hw_qmfk"],"meas_levels":[1,2],"meas_lo_range":[[6.923525326,7.923525326],[6.667956078,7.667956078],[6.816091357,7.816091357],[6.884056996,7.884056996],[6.747308081,7.747308081]],"meas_map":[[0,1,2,3,4]],"measure_esp_enabled":false,"memory":true,"multi_meas_enabled":true,"n_qubits":5,"n_registers":1,"n_uchannels":8,"online_date":"2020-03-23T04:00:00Z","open_pulse":true,"parametric_pulses":["gaussian","gaussian_square","drag","constant"],"processor_type":{"family":"Falcon","revision":4,"segment":"L"},"quantum_volume":32,"qubit_channel_mapping":[["u0","d0","u1","m0"],["u1","m1","u0","u3","u2","d1"],["u5","u3","u2","m2","d2","u4"],["u5","u7","m3","u4","u6","d3"],["m4","u7","u6","d4"]],"qubit_lo_range":[[4.468701124164304,5.468701124164304],[4.270103698982546,5.270103698982546],[4.5151628503963455,5.5151628503963455],[4.759275396316249,5.759275396316249],[4.497550159631257,5.497550159631257]],"real_qubits":false,"rep_delay_range":[0,500],"rep_times":[1000],"sample_name":"family: Falcon, revision: 4, segment: L","simulator":false,"supported_instructions":["measure","u1","reset","rz","u3","x","acquire","u2","id","play","sx","shiftf","setf","delay","cx"],"u_channel_lo":[[{"q":1,"scale":[1,0]}],[{"q":0,"scale":[1,0]}],[{"q":2,"scale":[1,0]}],[{"q":1,"scale":[1,0]}],[{"q":3,"scale":[1,0]}],[{"q":2,"scale":[1,0]}],[{"q":4,"scale":[1,0]}],[{"q":3,"scale":[1,0]}]],"uchannels_enabled":true,"url":"None"}
+      description: Returns the configuration for the specified device.
+  /devices/{id}/status:
+    get:
+      tags:
+        - Devices
+      summary: Get device status
+      operationId: get_device_status
+      parameters:
+        - schema:
+            type: string
+            pattern: '.*'
+            minLength: 1
+            maxLength: 500
+          name: id
+          description: Identifier of an available device
+          in: path
+          required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeviceStatusResponse'
+              examples:
+                sampleDeviceStatusResponse:
+                  value:
+                    state: true
+                    status: "active"
+                    message: "available"
+                    length_queue: 14
+                    backend_version: "1.3.24"
+      description: Returns the status for the specified device ID.
+  /devices/{id}/defaults:
+    get:
+      tags:
+        - Devices
+      summary: Get device default settings
+      operationId: get_device_defaults
+      parameters:
+        - schema:
+            type: string
+            pattern: '.*'
+            minLength: 1
+            maxLength: 500
+          name: id
+          description: Identifier of an available device
+          in: path
+          required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeviceDefaultsResponse'
+              examples:
+                sampleDeviceStatusResponse:
+                  value: {"buffer":0,"cmd_def":[{"name":"cx","qubits":[0,1],"sequence":[{"ch":"d0","name":"fc","phase":1.5707963267948966,"t0":0},{"ch":"d0","label":"Ym_d0","name":"parametric_pulse","parameters":{"amp":[-3.1140747235331546e-17,-0.16952233224585217],"beta":-0.5674696838555093,"duration":160,"sigma":40},"pulse_shape":"drag","t0":0},{"ch":"d0","label":"Xp_d0","name":"parametric_pulse","parameters":{"amp":[0.16952233224585217,0],"beta":-0.5674696838555093,"duration":160,"sigma":40},"pulse_shape":"drag","t0":720},{"ch":"d1","label":"X90p_d1","name":"parametric_pulse","parameters":{"amp":[0.059382748314504706,0.0024457355228724932],"beta":-1.237863708498682,"duration":160,"sigma":40},"pulse_shape":"drag","t0":0},{"ch":"d1","label":"CR90p_d1_u0","name":"parametric_pulse","parameters":{"amp":[0.04032804952407305,0.002308863263836048],"duration":560,"sigma":64,"width":304},"pulse_shape":"gaussian_square","t0":160},{"ch":"d1","label":"CR90m_d1_u0","name":"parametric_pulse","parameters":{"amp":[-0.04032804952407305,-0.0023088632638360433],"duration":560,"sigma":64,"width":304},"pulse_shape":"gaussian_square","t0":880},{"ch":"u0","label":"CR90p_u0","name":"parametric_pulse","parameters":{"amp":[-0.16404838638752248,0.447984379626925],"duration":560,"sigma":64,"width":304},"pulse_shape":"gaussian_square","t0":160},{"ch":"u0","label":"CR90m_u0","name":"parametric_pulse","parameters":{"amp":[0.16404838638752242,-0.447984379626925],"duration":560,"sigma":64,"width":304},"pulse_shape":"gaussian_square","t0":880},{"ch":"u1","name":"fc","phase":1.5707963267948966,"t0":0}]},{"name":"cx","qubits":[1,0],"sequence":[{"ch":"d0","name":"fc","phase":-1.5707963267948966,"t0":0},{"ch":"d0","label":"X90p_d0","name":"parametric_pulse","parameters":{"amp":[0.08517070544657084,0.001315475138119147],"beta":-0.7390638896391939,"duration":160,"sigma":40},"pulse_shape":"drag","t0":0},{"ch":"d0","label":"Xp_d0","name":"parametric_pulse","parameters":{"amp":[0.16952233224585217,0],"beta":-0.5674696838555093,"duration":160,"sigma":40},"pulse_shape":"drag","t0":720},{"ch":"d0","label":"Y90m_d0","name":"parametric_pulse","parameters":{"amp":[0.0013154751381191001,-0.08517070544657084],"beta":-0.7390638896391939,"duration":160,"sigma":40},"pulse_shape":"drag","t0":1440},{"ch":"d1","name":"fc","phase":-3.141592653589793,"t0":0},{"ch":"d1","label":"Y90p_d1","name":"parametric_pulse","parameters":{"amp":[-0.002445735522872487,0.059382748314504706],"beta":-1.237863708498682,"duration":160,"sigma":40},"pulse_shape":"drag","t0":0},{"ch":"d1","label":"CR90p_d1_u0","name":"parametric_pulse","parameters":{"amp":[0.04032804952407305,0.002308863263836048],"duration":560,"sigma":64,"width":304},"pulse_shape":"gaussian_square","t0":160},{"ch":"d1","label":"CR90m_d1_u0","name":"parametric_pulse","parameters":{"amp":[-0.04032804952407305,-0.0023088632638360433],"duration":560,"sigma":64,"width":304},"pulse_shape":"gaussian_square","t0":880},{"ch":"d1","name":"fc","phase":-1.5707963267948966,"t0":1440},{"ch":"d1","label":"X90p_d1","name":"parametric_pulse","parameters":{"amp":[0.059382748314504706,0.0024457355228724932],"beta":-1.237863708498682,"duration":160,"sigma":40},"pulse_shape":"drag","t0":1440},{"ch":"u0","name":"fc","phase":-3.141592653589793,"t0":0},{"ch":"u0","label":"CR90p_u0","name":"parametric_pulse","parameters":{"amp":[-0.16404838638752248,0.447984379626925],"duration":560,"sigma":64,"width":304},"pulse_shape":"gaussian_square","t0":160},{"ch":"u0","label":"CR90m_u0","name":"parametric_pulse","parameters":{"amp":[0.16404838638752242,-0.447984379626925],"duration":560,"sigma":64,"width":304},"pulse_shape":"gaussian_square","t0":880},{"ch":"u0","name":"fc","phase":-1.5707963267948966,"t0":1440},{"ch":"u1","name":"fc","phase":-1.5707963267948966,"t0":0},{"ch":"u3","name":"fc","phase":-3.141592653589793,"t0":0},{"ch":"u3","name":"fc","phase":-1.5707963267948966,"t0":1440}]},{"name":"cx","qubits":[1,2],"sequence":[{"ch":"d1","name":"fc","phase":1.5707963267948966,"t0":0},{"ch":"d1","label":"Ym_d1","name":"parametric_pulse","parameters":{"amp":[-2.180777454747743e-17,-0.1187159952984586],"beta":-1.0471056504145406,"duration":160,"sigma":40},"pulse_shape":"drag","t0":0},{"ch":"d1","label":"Xp_d1","name":"parametric_pulse","parameters":{"amp":[0.1187159952984586,0],"beta":-1.0471056504145406,"duration":160,"sigma":40},"pulse_shape":"drag","t0":2496},{"ch":"d2","label":"X90p_d2","name":"parametric_pulse","parameters":{"amp":[0.10198650862634871,0.0013394683261926034],"beta":-1.2964438429020329,"duration":160,"sigma":40},"pulse_shape":"drag","t0":0},{"ch":"d2","label":"CR90p_d2_u2","name":"parametric_pulse","parameters":{"amp":[0.013873453640614737,0.0014386033517831067],"duration":2336,"sigma":64,"width":2080},"pulse_shape":"gaussian_square","t0":160},{"ch":"d2","label":"CR90m_d2_u2","name":"parametric_pulse","parameters":{"amp":[-0.013873453640614737,-0.001438603351783105],"duration":2336,"sigma":64,"width":2080},"pulse_shape":"gaussian_square","t0":2656},{"ch":"u0","name":"fc","phase":1.5707963267948966,"t0":0},{"ch":"u2","label":"CR90p_u2","name":"parametric_pulse","parameters":{"amp":[-0.08815065228735922,-0.1970686366802925],"duration":2336,"sigma":64,"width":2080},"pulse_shape":"gaussian_square","t0":160},{"ch":"u2","label":"CR90m_u2","name":"parametric_pulse","parameters":{"amp":[0.08815065228735924,0.1970686366802925],"duration":2336,"sigma":64,"width":2080},"pulse_shape":"gaussian_square","t0":2656},{"ch":"u3","name":"fc","phase":1.5707963267948966,"t0":0}]},{"name":"cx","qubits":[2,1],"sequence":[{"ch":"d1","name":"fc","phase":-1.5707963267948966,"t0":0},{"ch":"d1","label":"X90p_d1","name":"parametric_pulse","parameters":{"amp":[0.059382748314504706,0.0024457355228724932],"beta":-1.237863708498682,"duration":160,"sigma":40},"pulse_shape":"drag","t0":0},{"ch":"d1","label":"Xp_d1","name":"parametric_pulse","parameters":{"amp":[0.1187159952984586,0],"beta":-1.0471056504145406,"duration":160,"sigma":40},"pulse_shape":"drag","t0":2496},{"ch":"d1","label":"Y90m_d1","name":"parametric_pulse","parameters":{"amp":[0.0024457355228724932,-0.059382748314504706],"beta":-1.237863708498682,"duration":160,"sigma":40},"pulse_shape":"drag","t0":4992},{"ch":"d2","name":"fc","phase":-3.141592653589793,"t0":0},{"ch":"d2","label":"Y90p_d2","name":"parametric_pulse","parameters":{"amp":[-0.0013394683261925924,0.10198650862634871],"beta":-1.2964438429020329,"duration":160,"sigma":40},"pulse_shape":"drag","t0":0},{"ch":"d2","label":"CR90p_d2_u2","name":"parametric_pulse","parameters":{"amp":[0.013873453640614737,0.0014386033517831067],"duration":2336,"sigma":64,"width":2080},"pulse_shape":"gaussian_square","t0":160},{"ch":"d2","label":"CR90m_d2_u2","name":"parametric_pulse","parameters":{"amp":[-0.013873453640614737,-0.001438603351783105],"duration":2336,"sigma":64,"width":2080},"pulse_shape":"gaussian_square","t0":2656},{"ch":"d2","name":"fc","phase":-1.5707963267948966,"t0":4992},{"ch":"d2","label":"X90p_d2","name":"parametric_pulse","parameters":{"amp":[0.10198650862634871,0.0013394683261926034],"beta":-1.2964438429020329,"duration":160,"sigma":40},"pulse_shape":"drag","t0":4992},{"ch":"u0","name":"fc","phase":-1.5707963267948966,"t0":0},{"ch":"u2","name":"fc","phase":-3.141592653589793,"t0":0},{"ch":"u2","label":"CR90p_u2","name":"parametric_pulse","parameters":{"amp":[-0.08815065228735922,-0.1970686366802925],"duration":2336,"sigma":64,"width":2080},"pulse_shape":"gaussian_square","t0":160},{"ch":"u2","label":"CR90m_u2","name":"parametric_pulse","parameters":{"amp":[0.08815065228735924,0.1970686366802925],"duration":2336,"sigma":64,"width":2080},"pulse_shape":"gaussian_square","t0":2656},{"ch":"u2","name":"fc","phase":-1.5707963267948966,"t0":4992},{"ch":"u3","name":"fc","phase":-1.5707963267948966,"t0":0},{"ch":"u5","name":"fc","phase":-3.141592653589793,"t0":0},{"ch":"u5","name":"fc","phase":-1.5707963267948966,"t0":4992}]},{"name":"cx","qubits":[2,3],"sequence":[{"ch":"d2","name":"fc","phase":-3.141592653589793,"t0":0},{"ch":"d2","label":"Y90p_d2","name":"parametric_pulse","parameters":{"amp":[-0.0013394683261925924,0.10198650862634871],"beta":-1.2964438429020329,"duration":160,"sigma":40},"pulse_shape":"drag","t0":0},{"ch":"d2","label":"CR90p_d2_u5","name":"parametric_pulse","parameters":{"amp":[0.06276974408273035,0.0014224518263545513],"duration":608,"sigma":64,"width":352},"pulse_shape":"gaussian_square","t0":160},{"ch":"d2","label":"CR90m_d2_u5","name":"parametric_pulse","parameters":{"amp":[-0.06276974408273035,-0.0014224518263545437],"duration":608,"sigma":64,"width":352},"pulse_shape":"gaussian_square","t0":928},{"ch":"d2","name":"fc","phase":-1.5707963267948966,"t0":1536},{"ch":"d2","label":"X90p_d2","name":"parametric_pulse","parameters":{"amp":[0.10198650862634871,0.0013394683261926034],"beta":-1.2964438429020329,"duration":160,"sigma":40},"pulse_shape":"drag","t0":1536},{"ch":"d3","name":"fc","phase":-1.5707963267948966,"t0":0},{"ch":"d3","label":"X90p_d3","name":"parametric_pulse","parameters":{"amp":[0.09228885314852181,0.0014025742426091116],"beta":-1.7711144727110373,"duration":160,"sigma":40},"pulse_shape":"drag","t0":0},{"ch":"d3","label":"Xp_d3","name":"parametric_pulse","parameters":{"amp":[0.18517121372479672,0],"beta":-1.4562294009889265,"duration":160,"sigma":40},"pulse_shape":"drag","t0":768},{"ch":"d3","label":"Y90m_d3","name":"parametric_pulse","parameters":{"amp":[0.0014025742426090819,-0.09228885314852181],"beta":-1.7711144727110373,"duration":160,"sigma":40},"pulse_shape":"drag","t0":1536},{"ch":"u2","name":"fc","phase":-3.141592653589793,"t0":0},{"ch":"u2","name":"fc","phase":-1.5707963267948966,"t0":1536},{"ch":"u4","name":"fc","phase":-1.5707963267948966,"t0":0},{"ch":"u5","name":"fc","phase":-3.141592653589793,"t0":0},{"ch":"u5","label":"CR90p_u5","name":"parametric_pulse","parameters":{"amp":[0.23873583834386253,-0.1601498890635595],"duration":608,"sigma":64,"width":352},"pulse_shape":"gaussian_square","t0":160},{"ch":"u5","label":"CR90m_u5","name":"parametric_pulse","parameters":{"amp":[-0.2387358383438625,0.16014988906355954],"duration":608,"sigma":64,"width":352},"pulse_shape":"gaussian_square","t0":928},{"ch":"u5","name":"fc","phase":-1.5707963267948966,"t0":1536},{"ch":"u7","name":"fc","phase":-1.5707963267948966,"t0":0}]},{"name":"cx","qubits":[3,2],"sequence":[{"ch":"d2","label":"X90p_d2","name":"parametric_pulse","parameters":{"amp":[0.10198650862634871,0.0013394683261926034],"beta":-1.2964438429020329,"duration":160,"sigma":40},"pulse_shape":"drag","t0":0},{"ch":"d2","label":"CR90p_d2_u5","name":"parametric_pulse","parameters":{"amp":[0.06276974408273035,0.0014224518263545513],"duration":608,"sigma":64,"width":352},"pulse_shape":"gaussian_square","t0":160},{"ch":"d2","label":"CR90m_d2_u5","name":"parametric_pulse","parameters":{"amp":[-0.06276974408273035,-0.0014224518263545437],"duration":608,"sigma":64,"width":352},"pulse_shape":"gaussian_square","t0":928},{"ch":"d3","name":"fc","phase":1.5707963267948966,"t0":0},{"ch":"d3","label":"Ym_d3","name":"parametric_pulse","parameters":{"amp":[-3.401540012734541e-17,-0.18517121372479672],"beta":-1.4562294009889265,"duration":160,"sigma":40},"pulse_shape":"drag","t0":0},{"ch":"d3","label":"Xp_d3","name":"parametric_pulse","parameters":{"amp":[0.18517121372479672,0],"beta":-1.4562294009889265,"duration":160,"sigma":40},"pulse_shape":"drag","t0":768},{"ch":"u4","name":"fc","phase":1.5707963267948966,"t0":0},{"ch":"u5","label":"CR90p_u5","name":"parametric_pulse","parameters":{"amp":[0.23873583834386253,-0.1601498890635595],"duration":608,"sigma":64,"width":352},"pulse_shape":"gaussian_square","t0":160},{"ch":"u5","label":"CR90m_u5","name":"parametric_pulse","parameters":{"amp":[-0.2387358383438625,0.16014988906355954],"duration":608,"sigma":64,"width":352},"pulse_shape":"gaussian_square","t0":928},{"ch":"u7","name":"fc","phase":1.5707963267948966,"t0":0}]},{"name":"cx","qubits":[3,4],"sequence":[{"ch":"d3","name":"fc","phase":1.5707963267948966,"t0":0},{"ch":"d3","label":"Ym_d3","name":"parametric_pulse","parameters":{"amp":[-3.401540012734541e-17,-0.18517121372479672],"beta":-1.4562294009889265,"duration":160,"sigma":40},"pulse_shape":"drag","t0":0},{"ch":"d3","label":"Xp_d3","name":"parametric_pulse","parameters":{"amp":[0.18517121372479672,0],"beta":-1.4562294009889265,"duration":160,"sigma":40},"pulse_shape":"drag","t0":1072},{"ch":"d4","label":"X90p_d4","name":"parametric_pulse","parameters":{"amp":[0.10297400564208449,0.0013551899851024537],"beta":-1.8552991568863249,"duration":160,"sigma":40},"pulse_shape":"drag","t0":0},{"ch":"d4","label":"CR90p_d4_u6","name":"parametric_pulse","parameters":{"amp":[0.03707867423075375,0.0008398523265316366],"duration":912,"sigma":64,"width":656},"pulse_shape":"gaussian_square","t0":160},{"ch":"d4","label":"CR90m_d4_u6","name":"parametric_pulse","parameters":{"amp":[-0.03707867423075375,-0.000839852326531632],"duration":912,"sigma":64,"width":656},"pulse_shape":"gaussian_square","t0":1232},{"ch":"u4","name":"fc","phase":1.5707963267948966,"t0":0},{"ch":"u6","label":"CR90p_u6","name":"parametric_pulse","parameters":{"amp":[-0.007010429360857565,-0.15811445188422757],"duration":912,"sigma":64,"width":656},"pulse_shape":"gaussian_square","t0":160},{"ch":"u6","label":"CR90m_u6","name":"parametric_pulse","parameters":{"amp":[0.007010429360857584,0.15811445188422757],"duration":912,"sigma":64,"width":656},"pulse_shape":"gaussian_square","t0":1232},{"ch":"u7","name":"fc","phase":1.5707963267948966,"t0":0}]},{"name":"cx","qubits":[4,3],"sequence":[{"ch":"d3","name":"fc","phase":-1.5707963267948966,"t0":0},{"ch":"d3","label":"X90p_d3","name":"parametric_pulse","parameters":{"amp":[0.09228885314852181,0.0014025742426091116],"beta":-1.7711144727110373,"duration":160,"sigma":40},"pulse_shape":"drag","t0":0},{"ch":"d3","label":"Xp_d3","name":"parametric_pulse","parameters":{"amp":[0.18517121372479672,0],"beta":-1.4562294009889265,"duration":160,"sigma":40},"pulse_shape":"drag","t0":1072},{"ch":"d3","label":"Y90m_d3","name":"parametric_pulse","parameters":{"amp":[0.0014025742426090819,-0.09228885314852181],"beta":-1.7711144727110373,"duration":160,"sigma":40},"pulse_shape":"drag","t0":2144},{"ch":"d4","name":"fc","phase":-3.141592653589793,"t0":0},{"ch":"d4","label":"Y90p_d4","name":"parametric_pulse","parameters":{"amp":[-0.001355189985102449,0.10297400564208449],"beta":-1.8552991568863249,"duration":160,"sigma":40},"pulse_shape":"drag","t0":0},{"ch":"d4","label":"CR90p_d4_u6","name":"parametric_pulse","parameters":{"amp":[0.03707867423075375,0.0008398523265316366],"duration":912,"sigma":64,"width":656},"pulse_shape":"gaussian_square","t0":160},{"ch":"d4","label":"CR90m_d4_u6","name":"parametric_pulse","parameters":{"amp":[-0.03707867423075375,-0.000839852326531632],"duration":912,"sigma":64,"width":656},"pulse_shape":"gaussian_square","t0":1232},{"ch":"d4","name":"fc","phase":-1.5707963267948966,"t0":2144},{"ch":"d4","label":"X90p_d4","name":"parametric_pulse","parameters":{"amp":[0.10297400564208449,0.0013551899851024537],"beta":-1.8552991568863249,"duration":160,"sigma":40},"pulse_shape":"drag","t0":2144},{"ch":"u4","name":"fc","phase":-1.5707963267948966,"t0":0},{"ch":"u6","name":"fc","phase":-3.141592653589793,"t0":0},{"ch":"u6","label":"CR90p_u6","name":"parametric_pulse","parameters":{"amp":[-0.007010429360857565,-0.15811445188422757],"duration":912,"sigma":64,"width":656},"pulse_shape":"gaussian_square","t0":160},{"ch":"u6","label":"CR90m_u6","name":"parametric_pulse","parameters":{"amp":[0.007010429360857584,0.15811445188422757],"duration":912,"sigma":64,"width":656},"pulse_shape":"gaussian_square","t0":1232},{"ch":"u6","name":"fc","phase":-1.5707963267948966,"t0":2144},{"ch":"u7","name":"fc","phase":-1.5707963267948966,"t0":0}]},{"name":"id","qubits":[0],"sequence":[{"ch":"d0","name":"QId_d0","t0":0}]},{"name":"id","qubits":[1],"sequence":[{"ch":"d1","name":"QId_d1","t0":0}]},{"name":"id","qubits":[2],"sequence":[{"ch":"d2","name":"QId_d2","t0":0}]},{"name":"id","qubits":[3],"sequence":[{"ch":"d3","name":"QId_d3","t0":0}]},{"name":"id","qubits":[4],"sequence":[{"ch":"d4","name":"QId_d4","t0":0}]},{"name":"measure","qubits":[0],"sequence":[{"ch":"m0","label":"M_m0","name":"parametric_pulse","parameters":{"amp":[-0.0692929110515423,0.03998115153422982],"duration":12224,"sigma":64,"width":11968},"pulse_shape":"gaussian_square","t0":0},{"ch":"m0","duration":1376,"name":"delay","t0":12224},{"duration":12224,"memory_slot":[0,1,2,3,4],"name":"acquire","qubits":[0,1,2,3,4],"t0":0}]},{"name":"measure","qubits":[0,1,2,3,4],"sequence":[{"ch":"m0","label":"M_m0","name":"parametric_pulse","parameters":{"amp":[-0.0692929110515423,0.03998115153422982],"duration":12224,"sigma":64,"width":11968},"pulse_shape":"gaussian_square","t0":0},{"ch":"m0","duration":1376,"name":"delay","t0":12224},{"ch":"m1","label":"M_m1","name":"parametric_pulse","parameters":{"amp":[0.04579128497698148,-0.060656064990706984],"duration":12224,"sigma":64,"width":11968},"pulse_shape":"gaussian_square","t0":0},{"ch":"m1","duration":1376,"name":"delay","t0":12224},{"ch":"m2","label":"M_m2","name":"parametric_pulse","parameters":{"amp":[-0.09958477403974661,-0.06695425885970666],"duration":12224,"sigma":64,"width":11968},"pulse_shape":"gaussian_square","t0":0},{"ch":"m2","duration":1376,"name":"delay","t0":12224},{"ch":"m3","label":"M_m3","name":"parametric_pulse","parameters":{"amp":[-0.07089986443714817,-0.03705683773332545],"duration":12224,"sigma":64,"width":11968},"pulse_shape":"gaussian_square","t0":0},{"ch":"m3","duration":1376,"name":"delay","t0":12224},{"ch":"m4","label":"M_m4","name":"parametric_pulse","parameters":{"amp":[0.04511005940938134,-0.07787863981915763],"duration":12224,"sigma":64,"width":11968},"pulse_shape":"gaussian_square","t0":0},{"ch":"m4","duration":1376,"name":"delay","t0":12224},{"duration":12224,"memory_slot":[0,1,2,3,4],"name":"acquire","qubits":[0,1,2,3,4],"t0":0}]},{"name":"measure","qubits":[1],"sequence":[{"ch":"m1","label":"M_m1","name":"parametric_pulse","parameters":{"amp":[0.04579128497698148,-0.060656064990706984],"duration":12224,"sigma":64,"width":11968},"pulse_shape":"gaussian_square","t0":0},{"ch":"m1","duration":1376,"name":"delay","t0":12224},{"duration":12224,"memory_slot":[0,1,2,3,4],"name":"acquire","qubits":[0,1,2,3,4],"t0":0}]},{"name":"measure","qubits":[2],"sequence":[{"ch":"m2","label":"M_m2","name":"parametric_pulse","parameters":{"amp":[-0.09958477403974661,-0.06695425885970666],"duration":12224,"sigma":64,"width":11968},"pulse_shape":"gaussian_square","t0":0},{"ch":"m2","duration":1376,"name":"delay","t0":12224},{"duration":12224,"memory_slot":[0,1,2,3,4],"name":"acquire","qubits":[0,1,2,3,4],"t0":0}]},{"name":"measure","qubits":[3],"sequence":[{"ch":"m3","label":"M_m3","name":"parametric_pulse","parameters":{"amp":[-0.07089986443714817,-0.03705683773332545],"duration":12224,"sigma":64,"width":11968},"pulse_shape":"gaussian_square","t0":0},{"ch":"m3","duration":1376,"name":"delay","t0":12224},{"duration":12224,"memory_slot":[0,1,2,3,4],"name":"acquire","qubits":[0,1,2,3,4],"t0":0}]},{"name":"measure","qubits":[4],"sequence":[{"ch":"m4","label":"M_m4","name":"parametric_pulse","parameters":{"amp":[0.04511005940938134,-0.07787863981915763],"duration":12224,"sigma":64,"width":11968},"pulse_shape":"gaussian_square","t0":0},{"ch":"m4","duration":1376,"name":"delay","t0":12224},{"duration":12224,"memory_slot":[0,1,2,3,4],"name":"acquire","qubits":[0,1,2,3,4],"t0":0}]},{"name":"rz","qubits":[0],"sequence":[{"ch":"d0","name":"fc","phase":"-(P0)","t0":0},{"ch":"u1","name":"fc","phase":"-(P0)","t0":0}]},{"name":"rz","qubits":[1],"sequence":[{"ch":"d1","name":"fc","phase":"-(P0)","t0":0},{"ch":"u0","name":"fc","phase":"-(P0)","t0":0},{"ch":"u3","name":"fc","phase":"-(P0)","t0":0}]},{"name":"rz","qubits":[2],"sequence":[{"ch":"d2","name":"fc","phase":"-(P0)","t0":0},{"ch":"u2","name":"fc","phase":"-(P0)","t0":0},{"ch":"u5","name":"fc","phase":"-(P0)","t0":0}]},{"name":"rz","qubits":[3],"sequence":[{"ch":"d3","name":"fc","phase":"-(P0)","t0":0},{"ch":"u4","name":"fc","phase":"-(P0)","t0":0},{"ch":"u7","name":"fc","phase":"-(P0)","t0":0}]},{"name":"rz","qubits":[4],"sequence":[{"ch":"d4","name":"fc","phase":"-(P0)","t0":0},{"ch":"u6","name":"fc","phase":"-(P0)","t0":0}]},{"name":"sx","qubits":[0],"sequence":[{"ch":"d0","label":"X90p_d0","name":"parametric_pulse","parameters":{"amp":[0.08517070544657084,0.001315475138119147],"beta":-0.7390638896391939,"duration":160,"sigma":40},"pulse_shape":"drag","t0":0}]},{"name":"sx","qubits":[1],"sequence":[{"ch":"d1","label":"X90p_d1","name":"parametric_pulse","parameters":{"amp":[0.059382748314504706,0.0024457355228724932],"beta":-1.237863708498682,"duration":160,"sigma":40},"pulse_shape":"drag","t0":0}]},{"name":"sx","qubits":[2],"sequence":[{"ch":"d2","label":"X90p_d2","name":"parametric_pulse","parameters":{"amp":[0.10198650862634871,0.0013394683261926034],"beta":-1.2964438429020329,"duration":160,"sigma":40},"pulse_shape":"drag","t0":0}]},{"name":"sx","qubits":[3],"sequence":[{"ch":"d3","label":"X90p_d3","name":"parametric_pulse","parameters":{"amp":[0.09228885314852181,0.0014025742426091116],"beta":-1.7711144727110373,"duration":160,"sigma":40},"pulse_shape":"drag","t0":0}]},{"name":"sx","qubits":[4],"sequence":[{"ch":"d4","label":"X90p_d4","name":"parametric_pulse","parameters":{"amp":[0.10297400564208449,0.0013551899851024537],"beta":-1.8552991568863249,"duration":160,"sigma":40},"pulse_shape":"drag","t0":0}]},{"name":"u1","qubits":[0],"sequence":[{"ch":"d0","name":"fc","phase":"-(P0)","t0":0},{"ch":"u1","name":"fc","phase":"-(P0)","t0":0}]},{"name":"u1","qubits":[1],"sequence":[{"ch":"d1","name":"fc","phase":"-(P0)","t0":0},{"ch":"u0","name":"fc","phase":"-(P0)","t0":0},{"ch":"u3","name":"fc","phase":"-(P0)","t0":0}]},{"name":"u1","qubits":[2],"sequence":[{"ch":"d2","name":"fc","phase":"-(P0)","t0":0},{"ch":"u2","name":"fc","phase":"-(P0)","t0":0},{"ch":"u5","name":"fc","phase":"-(P0)","t0":0}]},{"name":"u1","qubits":[3],"sequence":[{"ch":"d3","name":"fc","phase":"-(P0)","t0":0},{"ch":"u4","name":"fc","phase":"-(P0)","t0":0},{"ch":"u7","name":"fc","phase":"-(P0)","t0":0}]},{"name":"u1","qubits":[4],"sequence":[{"ch":"d4","name":"fc","phase":"-(P0)","t0":0},{"ch":"u6","name":"fc","phase":"-(P0)","t0":0}]},{"name":"u2","qubits":[0],"sequence":[{"ch":"d0","name":"fc","phase":"-(P1)","t0":0},{"ch":"d0","label":"Y90p_d0","name":"parametric_pulse","parameters":{"amp":[-0.0013154751381191485,0.08517070544657084],"beta":-0.7390638896391939,"duration":160,"sigma":40},"pulse_shape":"drag","t0":0},{"ch":"d0","name":"fc","phase":"-(P0)","t0":160},{"ch":"u1","name":"fc","phase":"-(P1)","t0":0},{"ch":"u1","name":"fc","phase":"-(P0)","t0":160}]},{"name":"u2","qubits":[1],"sequence":[{"ch":"d1","name":"fc","phase":"-(P1)","t0":0},{"ch":"d1","label":"Y90p_d1","name":"parametric_pulse","parameters":{"amp":[-0.002445735522872487,0.059382748314504706],"beta":-1.237863708498682,"duration":160,"sigma":40},"pulse_shape":"drag","t0":0},{"ch":"d1","name":"fc","phase":"-(P0)","t0":160},{"ch":"u0","name":"fc","phase":"-(P1)","t0":0},{"ch":"u0","name":"fc","phase":"-(P0)","t0":160},{"ch":"u3","name":"fc","phase":"-(P1)","t0":0},{"ch":"u3","name":"fc","phase":"-(P0)","t0":160}]},{"name":"u2","qubits":[2],"sequence":[{"ch":"d2","name":"fc","phase":"-(P1)","t0":0},{"ch":"d2","label":"Y90p_d2","name":"parametric_pulse","parameters":{"amp":[-0.0013394683261925924,0.10198650862634871],"beta":-1.2964438429020329,"duration":160,"sigma":40},"pulse_shape":"drag","t0":0},{"ch":"d2","name":"fc","phase":"-(P0)","t0":160},{"ch":"u2","name":"fc","phase":"-(P1)","t0":0},{"ch":"u2","name":"fc","phase":"-(P0)","t0":160},{"ch":"u5","name":"fc","phase":"-(P1)","t0":0},{"ch":"u5","name":"fc","phase":"-(P0)","t0":160}]},{"name":"u2","qubits":[3],"sequence":[{"ch":"d3","name":"fc","phase":"-(P1)","t0":0},{"ch":"d3","label":"Y90p_d3","name":"parametric_pulse","parameters":{"amp":[-0.0014025742426091135,0.09228885314852181],"beta":-1.7711144727110373,"duration":160,"sigma":40},"pulse_shape":"drag","t0":0},{"ch":"d3","name":"fc","phase":"-(P0)","t0":160},{"ch":"u4","name":"fc","phase":"-(P1)","t0":0},{"ch":"u4","name":"fc","phase":"-(P0)","t0":160},{"ch":"u7","name":"fc","phase":"-(P1)","t0":0},{"ch":"u7","name":"fc","phase":"-(P0)","t0":160}]},{"name":"u2","qubits":[4],"sequence":[{"ch":"d4","name":"fc","phase":"-(P1)","t0":0},{"ch":"d4","label":"Y90p_d4","name":"parametric_pulse","parameters":{"amp":[-0.001355189985102449,0.10297400564208449],"beta":-1.8552991568863249,"duration":160,"sigma":40},"pulse_shape":"drag","t0":0},{"ch":"d4","name":"fc","phase":"-(P0)","t0":160},{"ch":"u6","name":"fc","phase":"-(P1)","t0":0},{"ch":"u6","name":"fc","phase":"-(P0)","t0":160}]},{"name":"u3","qubits":[0],"sequence":[{"ch":"d0","name":"fc","phase":"-(P2)","t0":0},{"ch":"d0","label":"X90p_d0","name":"parametric_pulse","parameters":{"amp":[0.08517070544657084,0.001315475138119147],"beta":-0.7390638896391939,"duration":160,"sigma":40},"pulse_shape":"drag","t0":0},{"ch":"d0","name":"fc","phase":"-(P0)","t0":160},{"ch":"d0","label":"X90m_d0","name":"parametric_pulse","parameters":{"amp":[-0.08517070544657084,-0.001315475138119143],"beta":-0.7390638896391939,"duration":160,"sigma":40},"pulse_shape":"drag","t0":160},{"ch":"d0","name":"fc","phase":"-(P1)","t0":320},{"ch":"u1","name":"fc","phase":"-(P2)","t0":0},{"ch":"u1","name":"fc","phase":"-(P0)","t0":160},{"ch":"u1","name":"fc","phase":"-(P1)","t0":320}]},{"name":"u3","qubits":[1],"sequence":[{"ch":"d1","name":"fc","phase":"-(P2)","t0":0},{"ch":"d1","label":"X90p_d1","name":"parametric_pulse","parameters":{"amp":[0.059382748314504706,0.0024457355228724932],"beta":-1.237863708498682,"duration":160,"sigma":40},"pulse_shape":"drag","t0":0},{"ch":"d1","name":"fc","phase":"-(P0)","t0":160},{"ch":"d1","label":"X90m_d1","name":"parametric_pulse","parameters":{"amp":[-0.059382748314504706,-0.002445735522872497],"beta":-1.237863708498682,"duration":160,"sigma":40},"pulse_shape":"drag","t0":160},{"ch":"d1","name":"fc","phase":"-(P1)","t0":320},{"ch":"u0","name":"fc","phase":"-(P2)","t0":0},{"ch":"u0","name":"fc","phase":"-(P0)","t0":160},{"ch":"u0","name":"fc","phase":"-(P1)","t0":320},{"ch":"u3","name":"fc","phase":"-(P2)","t0":0},{"ch":"u3","name":"fc","phase":"-(P0)","t0":160},{"ch":"u3","name":"fc","phase":"-(P1)","t0":320}]},{"name":"u3","qubits":[2],"sequence":[{"ch":"d2","name":"fc","phase":"-(P2)","t0":0},{"ch":"d2","label":"X90p_d2","name":"parametric_pulse","parameters":{"amp":[0.10198650862634871,0.0013394683261926034],"beta":-1.2964438429020329,"duration":160,"sigma":40},"pulse_shape":"drag","t0":0},{"ch":"d2","name":"fc","phase":"-(P0)","t0":160},{"ch":"d2","label":"X90m_d2","name":"parametric_pulse","parameters":{"amp":[-0.10198650862634871,-0.0013394683261925863],"beta":-1.2964438429020329,"duration":160,"sigma":40},"pulse_shape":"drag","t0":160},{"ch":"d2","name":"fc","phase":"-(P1)","t0":320},{"ch":"u2","name":"fc","phase":"-(P2)","t0":0},{"ch":"u2","name":"fc","phase":"-(P0)","t0":160},{"ch":"u2","name":"fc","phase":"-(P1)","t0":320},{"ch":"u5","name":"fc","phase":"-(P2)","t0":0},{"ch":"u5","name":"fc","phase":"-(P0)","t0":160},{"ch":"u5","name":"fc","phase":"-(P1)","t0":320}]},{"name":"u3","qubits":[3],"sequence":[{"ch":"d3","name":"fc","phase":"-(P2)","t0":0},{"ch":"d3","label":"X90p_d3","name":"parametric_pulse","parameters":{"amp":[0.09228885314852181,0.0014025742426091116],"beta":-1.7711144727110373,"duration":160,"sigma":40},"pulse_shape":"drag","t0":0},{"ch":"d3","name":"fc","phase":"-(P0)","t0":160},{"ch":"d3","label":"X90m_d3","name":"parametric_pulse","parameters":{"amp":[-0.09228885314852181,-0.0014025742426090875],"beta":-1.7711144727110373,"duration":160,"sigma":40},"pulse_shape":"drag","t0":160},{"ch":"d3","name":"fc","phase":"-(P1)","t0":320},{"ch":"u4","name":"fc","phase":"-(P2)","t0":0},{"ch":"u4","name":"fc","phase":"-(P0)","t0":160},{"ch":"u4","name":"fc","phase":"-(P1)","t0":320},{"ch":"u7","name":"fc","phase":"-(P2)","t0":0},{"ch":"u7","name":"fc","phase":"-(P0)","t0":160},{"ch":"u7","name":"fc","phase":"-(P1)","t0":320}]},{"name":"u3","qubits":[4],"sequence":[{"ch":"d4","name":"fc","phase":"-(P2)","t0":0},{"ch":"d4","label":"X90p_d4","name":"parametric_pulse","parameters":{"amp":[0.10297400564208449,0.0013551899851024537],"beta":-1.8552991568863249,"duration":160,"sigma":40},"pulse_shape":"drag","t0":0},{"ch":"d4","name":"fc","phase":"-(P0)","t0":160},{"ch":"d4","label":"X90m_d4","name":"parametric_pulse","parameters":{"amp":[-0.10297400564208449,-0.00135518998510242],"beta":-1.8552991568863249,"duration":160,"sigma":40},"pulse_shape":"drag","t0":160},{"ch":"d4","name":"fc","phase":"-(P1)","t0":320},{"ch":"u6","name":"fc","phase":"-(P2)","t0":0},{"ch":"u6","name":"fc","phase":"-(P0)","t0":160},{"ch":"u6","name":"fc","phase":"-(P1)","t0":320}]},{"name":"x","qubits":[0],"sequence":[{"ch":"d0","label":"Xp_d0","name":"parametric_pulse","parameters":{"amp":[0.16952233224585217,0],"beta":-0.5674696838555093,"duration":160,"sigma":40},"pulse_shape":"drag","t0":0}]},{"name":"x","qubits":[1],"sequence":[{"ch":"d1","label":"Xp_d1","name":"parametric_pulse","parameters":{"amp":[0.1187159952984586,0],"beta":-1.0471056504145406,"duration":160,"sigma":40},"pulse_shape":"drag","t0":0}]},{"name":"x","qubits":[2],"sequence":[{"ch":"d2","label":"Xp_d2","name":"parametric_pulse","parameters":{"amp":[0.20350292430973976,0],"beta":-1.097286648937289,"duration":160,"sigma":40},"pulse_shape":"drag","t0":0}]},{"name":"x","qubits":[3],"sequence":[{"ch":"d3","label":"Xp_d3","name":"parametric_pulse","parameters":{"amp":[0.18517121372479672,0],"beta":-1.4562294009889265,"duration":160,"sigma":40},"pulse_shape":"drag","t0":0}]},{"name":"x","qubits":[4],"sequence":[{"ch":"d4","label":"Xp_d4","name":"parametric_pulse","parameters":{"amp":[0.20604140102356464,0],"beta":-1.6459873782317966,"duration":160,"sigma":40},"pulse_shape":"drag","t0":0}]}],"discriminator":{"name":"hw_qmfk","params":{}},"meas_freq_est":[7.423525326,7.167956078,7.316091357,7.384056996,7.247308081],"meas_kernel":{"name":"hw_qmfk","params":{}},"pulse_library":[{"name":"QId_d0","samples":[[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0]]},{"name":"QId_d1","samples":[[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0]]},{"name":"QId_d2","samples":[[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0]]},{"name":"QId_d3","samples":[[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0]]},{"name":"QId_d4","samples":[[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0]]}],"qubit_freq_est":[4.968701124164304,4.770103698982546,5.0151628503963455,5.259275396316249,4.997550159631257]}
+      description: Returns the defaults for the specified device.
+  /programs:
+    post:
+      tags:
+        - Programs
+      summary: Add a program
+      operationId: create_program
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProgramResponse'
+              examples:
+                programResponseExample:
+                  $ref: '#/components/examples/programResponseExample'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorContainer'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorContainer'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorContainer'
+      description: Upload a new quantum program.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProgramCreate'
+        description: Program parameters
+    get:
+      parameters:
+        - in: query
+          name: limit
+          required: false
+          schema:
+            type: integer
+            default: 20
+            minimum: 1
+            maximum: 20
+          description: Number of results to return at a time
+        - in: query
+          name: offset
+          required: false
+          schema:
+            type: integer
+            default: 0
+          description: Number of results to offset when retrieving the list of jobs
+        - in: query
+          name: name
+          required: false
+          schema:
+            type: string
+            minLength: 1
+            maxLength: 52
+            pattern: '.*'
+          description: Program name
+        - in: query
+          name: search
+          required: false
+          schema:
+            type: string
+            minLength: 1
+            maxLength: 10000
+            pattern: '.*'
+          description: Searches for programs containing the specified value in their name or description.
+      tags:
+        - Programs
+      summary: List programs
+      operationId: list_programs
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProgramsResponse'
+              examples:
+                sampleProgramsWithPagination:
+                  $ref: '#/components/examples/programsResponseExample'
+      description: Returns a list of all programs you uploaded and all public programs.
+  '/programs/{id}':
+    parameters:
+      - schema:
+          type: string
+          minLength: 1
+          maxLength: 1000
+          pattern: '.*'
+        name: id
+        description: Identifier of an available program
+        in: path
+        required: true
+    get:
+      tags:
+        - Programs
+      summary: List program details
+      operationId: get_program
+      description: Return information about the specified program.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProgramResponse'
+              examples:
+                sampleProgram:
+                  $ref: '#/components/examples/programResponseExample'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorContainer'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorContainer'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorContainer'
+    delete:
+      tags:
+        - Programs
+      summary: Delete a program
+      operationId: delete_programs_id
+      responses:
+        '204':
+          description: OK
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorContainer'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorContainer'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorContainer'
+      description: Delete the specified program.
+      parameters: []
+    patch:
+      tags:
+        - Programs
+      summary: Update program metadata
+      operationId: update_program
+      description: Update the name, cost, description, or add more backend requirements, parameters, return values, and results.  To update the actual program data, use the PUT enpoint instead.
+      responses:
+        '204':
+          description: OK
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorContainer'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorContainer'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorContainer'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorContainer'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProgramUpdate'
+        description: Program update parameters
+  '/programs/{id}/data':
+    parameters:
+      - schema:
+          type: string
+          minLength: 1
+          maxLength: 1000
+          pattern: '.*'
+        name: id
+        description: Identifier of an available program.
+        in: path
+        required: true
+    put:
+      x-codegen-request-body-name: program_data
+      tags:
+        - Programs
+      summary: Update a program
+      operationId: update_program_data
+      description: 'Update the program data for the specified program. To update or add metadata, use the Patch endpoint instead.'
+      responses:
+        '204':
+          description: OK
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorContainer'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorContainer'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorContainer'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorContainer'
+      requestBody:
+        content:
+          application/octet-stream:
+            schema:
+              type: object
+              writeOnly: true
+              description: Program data as a base64 encoded string
+        description: Program data as a base64 encoded string
+  '/programs/{id}/public':
+    parameters:
+      - schema:
+          type: string
+          minLength: 1
+          maxLength: 1000
+          pattern: '.*'
+        name: id
+        description: Identifier of an available program
+        in: path
+        required: true
+    put:
+      tags:
+        - Programs
+      summary: Make a program public
+      operationId: set_program_public
+      description: 'Make a program that you uploaded publicly available. Others will be able to view and run the program, but only you will be able to edit it.'
+      responses:
+        '204':
+          description: OK
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorContainer'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorContainer'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorContainer'
+  '/programs/{id}/private':
+    parameters:
+      - schema:
+          type: string
+          minLength: 1
+          maxLength: 1000
+          pattern: '.*'
+        name: id
+        description: Identifier of an available program
+        in: path
+        required: true
+    put:
+      tags:
+        - Programs
+      summary: Make a program private
+      operationId: set_program_private
+      description: You can only make a program private if you uploaded it.
+      responses:
+        '204':
+          description: OK
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorContainer'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorContainer'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorContainer'
+  /jobs:
+    get:
+      parameters:
+        - in: query
+          name: limit
+          required: false
+          schema:
+            type: integer
+            default: 200
+            minimum: 1
+            maximum: 200
+          description: Number of results to return at a time
+        - in: query
+          name: offset
+          required: false
+          schema:
+            type: integer
+          description: Number of results to offset when retrieving the list of jobs
+        - in: query
+          name: pending
+          required: false
+          schema:
+            type: boolean
+          description: 'Returns ''Queued'' and ''Running'' jobs if true.  Returns ''Completed'', ''Cancelled'', and ''Failed'' jobs if false.'
+        - in: query
+          name: provider
+          required: false
+          schema:
+            type: string
+            minLength: 5
+            maxLength: 100
+            pattern: ^[^/\s]+/[^/\s]+/[^/\s]+$
+          description: Provider to filter jobs. Should be in the following format {hub}/{group}/{project}
+        - in: query
+          name: program
+          required: false
+          schema:
+            type: string
+            minLength: 1
+            maxLength: 63
+            pattern: '.*'
+          description: Program ID to filter jobs
+        - in: query
+          name: backend
+          required: false
+          schema:
+            type: string
+            minLength: 1
+            maxLength: 100
+            pattern: '.*'
+          description: Backend to filter jobs
+        - in: query
+          name: created_after
+          required: false
+          schema:
+            type: string
+            format: date-time
+            minLength: 1
+            maxLength: 100
+          description: Job created after filter
+        - in: query
+          name: created_before
+          required: false
+          schema:
+            type: string
+            format: date-time
+            minLength: 1
+            maxLength: 100
+          description: Job created before filter
+        - in: query
+          name: sort
+          required: false
+          schema:
+            type: string
+            minLength: 1
+            maxLength: 4
+            pattern: ^(ASC|DESC)$
+          description: Sort jobs by created time ASC or DESC (default)
+      tags:
+        - Jobs
+      summary: List jobs
+      operationId: list_jobs
+      description: List the quantum program jobs you have run.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JobsResponse'
+              examples:
+                jobsResponseExample:
+                  $ref: '#/components/examples/jobsResponseExample'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorContainer'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorContainer'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorContainer'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorContainer'
+    post:
+      tags:
+        - Jobs
+      summary: Run a job
+      operationId: create_job
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JobCreateResponse'
+              example:
+                id: 'c5dge2d3rn7breq27i9g'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorContainer'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorContainer'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorContainer'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorContainer'
+      description: Run a quantum program. Note the returned job ID.  You will use it to check the job's status and review results.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/JobRunParams'
+  '/jobs/{id}':
+    parameters:
+      - schema:
+          type: string
+          minLength: 1
+          maxLength: 1000
+          pattern: '.*'
+        name: id
+        in: path
+        required: true
+        description: Identifier of an existing job
+    get:
+      summary: List job details
+      tags:
+        - Jobs
+      description: List the details about the specified quantum program job.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JobResponse'
+              examples:
+                jobResponseSample:
+                  $ref: '#/components/examples/jobResponseExample'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorContainer'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorContainer'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorContainer'
+      operationId: get_job_details_jid
+    delete:
+      tags:
+        - Jobs
+      summary: Delete a job
+      operationId: delete_job_jid
+      responses:
+        '204':
+          description: OK
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorContainer'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorContainer'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorContainer'
+      description: Delete the specified job.
+  '/jobs/{id}/results':
+    parameters:
+      - schema:
+          type: string
+          minLength: 1
+          maxLength: 1000
+          pattern: '.*'
+        name: id
+        in: path
+        required: true
+        description: A job ID
+    get:
+      summary: List job results
+      tags:
+        - Jobs
+      description: Return the final result from this job.
+      responses:
+        '200':
+          description: Returns the job's final result.
+          content:
+            text/plain:
+              schema:
+                type: string
+                description: Job final result.
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorContainer'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorContainer'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorContainer'
+      operationId: get_job_results_jid
+  '/jobs/{id}/interim_results':
+    parameters:
+      - schema:
+          type: string
+          minLength: 1
+          maxLength: 1000
+          pattern: '.*'
+        name: id
+        in: path
+        required: true
+        description: A job ID
+    get:
+      summary: List job interim results
+      tags:
+        - Jobs
+      description: Return the interim results from this job. Interim results are kept two days after the job has finished running.
+      responses:
+        '200':
+          description: Returns job interim results.
+          content:
+            text/plain:
+              schema:
+                type: string
+                description: Job interim results.
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorContainer'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorContainer'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorContainer'
+      operationId: get_interim_results_jid
+  '/jobs/{id}/logs':
+    parameters:
+      - schema:
+          type: string
+          minLength: 1
+          maxLength: 1000
+          pattern: '.*'
+        name: id
+        in: path
+        required: true
+        description: A job ID
+    get:
+      operationId: get_jog_logs_jid
+      summary: List job logs
+      tags:
+        - Jobs
+      description: List all job logs for the specified job.
+      responses:
+        '200':
+          description: Returns job logs.
+          content:
+            text/plain:
+              schema:
+                type: string
+                description: Job logs.
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorContainer'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorContainer'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorContainer'
+        '410':
+          description: Gone
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorContainer'
+  '/jobs/{id}/cancel':
+    parameters:
+      - schema:
+          type: string
+          minLength: 1
+          maxLength: 1000
+          pattern: '.*'
+        name: id
+        in: path
+        required: true
+        description: A job ID
+    post:
+      summary: Cancel a job
+      tags:
+        - Jobs
+      description: Cancels the specified job.
+      responses:
+        '204':
+          description: OK
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorContainer'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorContainer'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorContainer'
+        '409':
+          description: Job is in non cancellable status.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorContainer'
+      operationId: cancel_job_jid
+  /logout:
+    post:
+      summary: Clear a user's authorization cache
+      tags:
+        - Auth
+      description: Clear the authorization cache for the specified user.  This is useful if a user's role changes.
+      responses:
+        '204':
+          description: Authorization cache for the user was deleted.
+        '500':
+          description: Internal error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorContainer'
+      operationId: logout
+  '/stream/jobs/{id}':
+    parameters:
+      - schema:
+          type: string
+          minLength: 1
+          maxLength: 1000
+          pattern: '.*'
+        name: id
+        in: path
+        required: true
+        description: A job ID
+    get:
+      operationId: get_stream_job_logs_jid
+      summary: Get the job results stream
+      tags:
+        - Jobs
+      description: Get a result stream as the job runs.
+      responses:
+        '200':
+          description: WebSocket stream
+          content:
+            text/event-stream:
+              schema:
+                type: string
+                x-events:
+                  result:
+                    type: string
+                description: Job result event
+        '303':
+          description: Found
+          content:
+            text/event-stream:
+              schema:
+                type: string
+                x-events:
+                  result:
+                    type: string
+                description: Job result event
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorContainer'
+        '500':
+          description: Internal error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorContainer'
+components:
+  examples:
+    jobResponseExample:
+      value:
+        id: 'c5dge2d3rn7breq27i9g'
+        backend: 'ibmq_qasm_simulator'
+        state: 
+          status: 'Completed'
+          reason: ''
+        status: 'Completed'
+        params:
+          iterations: 3
+        program:
+          id: 'myprogram-abcdef12345'
+        created: '2021-10-04T13:52:09.456851Z'
+        runtime: 'qiskit-program:latest'
+    jobsResponseExample:
+      value:
+        jobs:
+          - id: 'c5dge2d3rn7breq27i9g'
+            backend: 'ibmq_qasm_simulator'
+            state: 
+              status: 'Completed'
+              reason: ''
+            status: 'Completed'
+            params:
+              iterations: 3
+            program:
+              id: 'myprogram-abcdef12345'
+            created: '2021-10-04T13:52:09.456851Z'
+            runtime: 'qiskit-program:latest'
+        count: 1
+        limit: 1
+        offset: 0
+    programsResponseExample:
+      value:
+        programs:
+          - id: 'sample-program-abcdef123456'
+            name: 'sample-program'
+            cost: 18000
+            description: 'A sample runtime program'
+            creation_date: '2021-05-10T08:59:51Z'
+            update_date: '2021-06-04T14:11:19Z'
+            spec:
+              backend_requirements:
+                min_num_qubits: 5
+              parameters:
+                properties:
+                  iterations:
+                    description: 'Number of iterations to run. Each iteration generates a runs a random circuit.'
+                    type: 'integer'
+                    minimum: 0
+                $schema: 'https://json-schema.org/draft/2019-09/schema'
+                required:
+                  - 'iterations'
+              return_values:
+                $schema: 'https://json-schema.org/draft/2019-09/schema'
+                properties:
+                  result:
+                    description: 'A string that says "All done!"'
+                    type: 'string'
+              interim_results:
+                $schema: 'https://json-schema.org/draft/2019-09/schema'
+                properties:
+                  iteration:
+                    type: 'integer'
+                    description: 'Iteration number'
+                  counts:
+                    type: 'object'
+                    description: 'Histogram data of the circuit result'
+            is_public: true
+            summary: 'A sample program response'
+        count: 1
+        limit: 1
+        offset: 0
+      summary: 'A sample programs response'
+    programResponseExample:
+      value:
+        id: 'sample-program-abcdef123456'
+        name: 'sample-program'
+        cost: 18000
+        description: 'A sample runtime program'
+        creation_date: '2021-05-10T08:59:51Z'
+        update_date: '2021-06-04T14:11:19Z'
+        spec:
+          backend_requirements:
+            min_num_qubits: 5
+          parameters:
+            properties:
+              iterations:
+                description: 'Number of iterations to run. Each iteration generates a runs a random circuit.'
+                type: 'integer'
+                minimum: 0
+            $schema: 'https://json-schema.org/draft/2019-09/schema'
+            required:
+              - 'iterations'
+          return_values:
+            $schema: 'https://json-schema.org/draft/2019-09/schema'
+            properties:
+              result:
+                description: 'A string that says "All done!"'
+                type: 'string'
+          interim_results:
+            $schema: 'https://json-schema.org/draft/2019-09/schema'
+            properties:
+              iteration:
+                type: 'integer'
+                description: 'Iteration number'
+              counts:
+                type: 'object'
+                description: 'Histogram data of the circuit result'
+        is_public: true
+      summary: 'A sample program response'
+    devicesResponseExample:
+      value:
+        devices:
+          - "ibmq_qasm_simulator"
+          - "ibmq_armonk"
+  schemas:
+    ProgramCreate:
+      title: ProgramCreate
+      allOf:
+        - $ref: '#/components/schemas/ProgramMetadata'
+        - type: object
+          properties:
+            data:
+              format: byte
+              description: The program text to upload, as a base64 encoded string
+              type: string
+              pattern: '.*'
+              minLength: 1
+              maxLength: 10000
+          required:
+            - data
+      description: Create program data
+    ProgramResponse:
+      title: ProgramResponse
+      allOf:
+        - $ref: '#/components/schemas/ProgramMetadata'
+        - type: object
+          properties:
+            id:
+              type: string
+              description: Program ID
+            data:
+              type: string
+              format: byte
+              description: Program text (base64 encoded string)
+            creation_date:
+              type: string
+              description: UTC timestamp for when the program was created
+              format: date-time
+            update_date:
+              type: string
+              description: UTC timestamp for when the program was last updated
+              format: date-time
+      description: Program response
+    ProgramsResponse:
+      title: ProgramsResponse
+      type: object
+      description: Program collection response
+      properties:
+        programs:
+          type: array
+          description: A list of programs
+          items:
+            $ref: '#/components/schemas/ProgramResponse'
+        count:
+          type: integer
+          description: Total count of programs for the user
+        offset:
+          type: integer
+          description: Offset at which paginated results are returned
+        limit:
+          type: integer
+          description: Maximum number of results returned in a paginated response
+      required:
+        - limit
+        - offset
+    ProgramMetadata:
+      title: ProgramMetadata
+      allOf:
+        - $ref: '#/components/schemas/ProgramUpdate'
+        - type: object
+          description: Program metadata
+          properties:
+            is_public:
+              type: boolean
+              description: Indicates whether the program is public or private
+              default: false
+      required:
+        - name
+    ProgramUpdate:
+      title: ProgramUpdate
+      type: object
+      description: Program update
+      properties:
+        name:
+          type: string
+          description: Program name
+          pattern: '.*'
+          minLength: 1
+          maxLength: 52
+        cost:
+          type: integer
+          format: int32
+          description: Cost of the program as the estimated time it should take to complete (in seconds)
+          default: 600
+          minimum: 60
+        description:
+          type: string
+          description: Program description to help others understand the purpose of this program
+          pattern: '.*'
+          minLength: 1
+          maxLength: 10000
+        spec:
+          description: Program information relevant to running this program
+          type: object
+          properties:
+            backend_requirements:
+              description: 'Backend characteristics, such as the number of qubits, required in order to run this program'
+              type: object
+              additionalProperties: true
+            parameters:
+              description: A user-defined schema for the program parameters
+              type: object
+              additionalProperties: true
+            return_values:
+              description: A user-defined schema for the program results
+              type: object
+              additionalProperties: true
+            interim_results:
+              description: A user-defined schema for the interim results
+              type: object
+              additionalProperties: true
+    JobRunParams:
+      title: ProgramParams
+      type: object
+      description: Parameters used to run a job
+      properties:
+        program_id:
+          type: string
+          description: ID of the program to be executed
+          pattern: '.*'
+          minLength: 1
+          maxLength: 10000
+        hub:
+          type: string
+          description: Provider hub name (legacy users only)
+          pattern: '.*'
+          minLength: 1
+          maxLength: 10000
+        group:
+          type: string
+          description: Provider group name (legacy users only)
+          pattern: '.*'
+          minLength: 1
+          maxLength: 10000
+        project:
+          type: string
+          description: Provider project name (legacy users only)
+          pattern: '.*'
+          minLength: 1
+          maxLength: 10000
+        backend:
+          type: string
+          description: Name that identifies the backend on which to run the program
+          pattern: '.*'
+          minLength: 1
+          maxLength: 10000
+        params:
+          type: object
+          description: Parameters to inject into the program as key-value pairs
+          additionalProperties: true
+        runtime:
+          type: string
+          description: 'Name and tag of the image to use when running a program (legacy users only). Should follow the pattern "name:tag".'
+          pattern: '.*'
+          minLength: 1
+          maxLength: 10000
+        log_level:
+          type: string
+          description: Logging level of the program
+          enum:
+            - critical
+            - error
+            - warning
+            - info
+            - debug
+      required:
+        - program_id
+    JobResponse:
+      title: JobResponse
+      type: object
+      description: A job
+      properties:
+        id:
+          type: string
+          description: Identifier assigned to the job
+        hub:
+          type: string
+          description: Name of the hub in which the job is being executed (legacy users only)
+        group:
+          type: string
+          description: Name of the group in which the job is being executed (legacy users only)
+        project:
+          type: string
+          description: Name of the project in which the job is being executed (legacy users only)
+        backend:
+          type: string
+          description: The backend on which to run the program.  If no backend is specified, the job is sent to the backend with the shortest queue that you have access to. 
+          pattern: '.*'
+        state:
+          $ref: '#/components/schemas/JobState'
+        status:
+          $ref: '#/components/schemas/JobStatus'
+        params:
+          type: object
+          additionalProperties: true
+          description: Parameters used to execute the job
+        program:
+          type: object
+          description: Program associated with the job
+          properties:
+            id:
+              type: string
+              description: Identifier from the executed program
+        created:
+          type: string
+          description: UTC timestamp for when the job was created
+        runtime:
+          type: string
+          description: Name and tag of the image to use when running a program (legacy users only)
+      required:
+        - state
+        - status
+    JobCreateResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Job ID
+      description: Response when creating a job
+    JobsResponse:
+      title: JobsResponse
+      type: object
+      description: Jobs collection response
+      properties:
+        jobs:
+          description: A list of jobs
+          type: array
+          items:
+            $ref: '#/components/schemas/JobResponse'
+        count:
+          type: integer
+          description: Total number of jobs for the user
+        offset:
+          type: integer
+          description: Offset at which paginated results are returned
+        limit:
+          type: integer
+          description: Maximum number of results returned in the paginated response
+      required:
+        - limit
+        - offset
+    JobStatus:
+      title: JobStatus
+      type: string
+      description: Current status of the job
+      enum:
+        - Queued
+        - Running
+        - Completed
+        - Cancelled
+        - Cancelled - Ran too long
+        - Failed
+    JobState:
+      title: JobState
+      type: object
+      description: Current state of the job
+      properties:
+        status:
+          type: string
+          description: Current status of the job
+          enum:
+            - Queued
+            - Running
+            - Completed
+            - Cancelled
+            - Failed
+        reason:
+          type: string
+          description: Reason for the current status
+    ErrorContainer:
+      description: Error response
+      type: object
+      properties:
+        trace:
+          type: string
+          description: A request identifier
+        errors:
+          type: array
+          description: A list of errors
+          items:
+            type: object
+            properties:
+              code:
+                type: string
+                description: Error type identifier
+              message:
+                description: Explanation of the problem
+                type: string
+              more_info:
+                description: URL where information about the error can be read in a web browser
+                type: string
+    DevicesResponse:
+      title: DevicesResponse
+      type: object
+      description: Devices Response
+      properties:
+        devices:
+          type: array
+          description: A list of device names
+          items:
+            type: string
+            minLength: 1
+            maxLength: 100000
+    DevicePropertiesResponse:
+      title: DevicesPropertiesResponse
+      type: object
+      description: Devices Properties Response
+      additionalProperties: true
+    DeviceConfigurationResponse:
+      title: DevicesConfigurationResponse
+      type: object
+      description: Devices Configuration Response
+      additionalProperties: true
+    DeviceDefaultsResponse:
+      title: DevicesDefaultsResponse
+      type: object
+      description: Devices Defaults Response
+      additionalProperties: true
+    DeviceStatusResponse:
+      title: DevicesStatusResponse
+      type: object
+      description: Devices Status Response
+      additionalProperties: false
+      properties:
+        state:
+          type: boolean
+          description: State of the device
+        status:
+          type: string
+          description: Status of the device
+        message:
+          type: string
+          description: Description of the device state
+        length_queue:
+          type: integer
+          description: Length of the queue for the device
+        backend_version:
+          type: string
+          description: Device version
+  securitySchemes:
+    IBMQuantumExperienceAuth:
+      type: http
+      scheme: bearer
+      description: IBM Quantum API Token. For legacy IBM Quantum Experience users only. Do not use if authorizing via IBM Cloud.
+    IBMCloudAPIKey:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: IBM Cloud Identity and Access Management (IAM) API key. In the format `apikey <IBM Cloud API Key>`.
+    IBMCloudAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: IBM Cloud Identity and Access Management (IAM) access token
+    Service-CRN:
+      type: apiKey
+      in: header
+      name: Service-CRN
+      description: The Cloud Resource Name (CRN) of your Qiskit Runtime service instance
+    IBMQuantumExperienceAccessToken:
+      type: apiKey
+      in: header
+      name: x-access-token
+      description: IBM Quantum Experience access token
