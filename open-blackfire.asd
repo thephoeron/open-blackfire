@@ -18,7 +18,16 @@
   :mailto "thephoeron@protonmail.com"
   :version (:read-file-form "VERSION")
   :license "MIT"
-  :depends-on ()
+  :depends-on (closer-mop
+               alexandria
+               serapeum
+               dexador
+               quri
+               ; uri-template
+               yason
+               json-mop
+               ; json-schema
+               )
   :serial t
   :components ((:module protocol-phi
                 :components ((:file "package")
