@@ -20,9 +20,23 @@
   :license "MIT"
   :depends-on ()
   :serial t
-  :components ()
-  :perform ()
-  :in-order-to ())
+  :components ((:module protocol-phi
+                :components ((:file "package")
+                             (:file "generic-api")
+                             (:file "quantum-objects")))
+               (:module quantum-cloud
+                :components ((:module ibm-quantum
+                              :components ((:file "package")
+                                           (:file "component-objects")
+                                           (:file "programs")
+                                           (:file "jobs")
+                                           (:file "devices")
+                                           (:file "auth")))))
+               (:file "blackfire"))
+  :perform (load-op :after (op c)
+             (provide :blackfire)
+             (pushnew :blackfire *features*))
+  :in-order-to ((test-op (test-op "open-blackfire/test"))))
 
 (defsystem open-blackfire/docs
   :name "OPEN-BLACKFIRE/DOCS"
