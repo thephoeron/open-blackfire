@@ -2,3 +2,5 @@
 ;; Released under the MIT License. See open-blackfire/LICENSE for more information.
 
 (in-package :open-blackfire/quantum-cloud/ibm-quantum)
+
+(defmethod clear-authorization-cache ())
