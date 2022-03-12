@@ -25,9 +25,9 @@
            #:device-configuration-response
            #:device-defaults-response
            #:device-status-response
-           ;; Auth
+           ;; Auth Methods
            #:clear-authorization-cache
-           ;; Programs
+           ;; Program Methods
            #:create-program
            #:list-programs
            #:get-program
@@ -36,17 +36,17 @@
            #:update-program-data
            #:set-program-public
            #:set-program-private
-           ;; Jobs
+           ;; Job Methods
            #:list-jobs
-           #:run-job
-           #:list-job-details
+           #:create-job
+           #:get-job-details
            #:delete-job
-           #:list-job-results
-           #:list-job-interim-results
-           #:list-job-logs
+           #:get-job-results
+           #:get-job-interim-results
+           #:get-job-logs
            #:cancel-job
            #:get-job-results-stream
-           ;; Devices
+           ;; Device Methods
            #:list-devices
            #:get-device-properties
            #:get-device-configuration
