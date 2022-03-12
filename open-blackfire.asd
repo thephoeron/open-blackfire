@@ -22,8 +22,8 @@
                alexandria
                serapeum
                dexador
-               quri
-               ; uri-template
+               ;quri
+               uri-template
                yason
                json-mop
                ; json-schema

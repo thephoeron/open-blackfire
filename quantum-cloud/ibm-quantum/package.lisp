@@ -5,7 +5,7 @@
 
 (defpackage open-blackfire/quantum-cloud/ibm-quantum
   (:nicknames obfq/ibm)
-  (:use cl protocol-phi)
+  (:use cl protocol-phi uri-template)
   (:export #:*ibmq-server*
            ;; Component Objects
            #:program-create
@@ -55,6 +55,13 @@
 
 (in-package :open-blackfire/quantum-cloud/ibm-quantum)
 
+(enable-uri-template-syntax)
+
 ;; IIRC, I think users have to configure the server as well as their API Key
 ;; manually, will check this. But for now a sensible default.
-(defparameter *ibmq-server* "https://runtime-us-east.quantum-computing.ibm.com/")
+(defparameter *ibmq-server* "https://runtime-us-east.quantum-computing.ibm.com")
+
+(defun ibmq-route (route-string &key &allow-other-keys)
+  "Generate a fully resolved URI for a REST API call from a route template string and arbitrary keyword parameters."
+  (let ((server-url *ibmq-server*))
+    #U{server-url}{route-string}))

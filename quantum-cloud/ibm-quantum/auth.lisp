@@ -3,4 +3,10 @@
 
 (in-package :open-blackfire/quantum-cloud/ibm-quantum)
 
-(defmethod clear-authorization-cache ())
+(defmethod clear-authorization-cache ()
+  "Clear the authorization cache for the specified user.  This is useful if a user's role changes."
+  (handler-case (dex:post (ibmq-route "/authorize"))
+    ;; 204 Cache successfully deleted
+    ;; 500 Internal error
+    (dex:http-request-failed (e)
+      (format *error-output* "The server at ~S returned ~D" *ibmq-server* (dex:response-status e)))))
