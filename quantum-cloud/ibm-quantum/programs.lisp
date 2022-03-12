@@ -3,20 +3,34 @@
 
 (in-package :open-blackfire/quantum-cloud/ibm-quantum)
 
-(defmethod add-program ()
-  ""
-  )
+(defmethod create-program ()
+  "Upload a new quantum program."
+  (dex:post #U{*ibmq-server*}/programs))
 
-(defmethod list-programs ())
+(defmethod list-programs ()
+  "Returns a list of all programs you uploaded and all public programs."
+  (dex:get #U{*ibmq-server*}/programs))
 
-(defmethod list-program-details ())
+(defmethod get-program (program-id)
+  "Return information about the specified program."
+  (dex:get #U{*ibmq-server*}/programs/{program-id}))
 
-(defmethod delete-program ())
+(defmethod delete-program (program-id)
+  "Delete the specified program."
+  (dex:delete #U{*ibmq-server*}/programs/{program-id}))
 
-(defmethod update-program-metadata ())
+(defmethod update-program (program-id)
+  "Update the name, cost, description, or add more backend requirements, parameters, return values, and results.  To update the actual program data, use the PUT enpoint instead."
+  (dex:patch #U{*ibmq-server*}/programs/{program-id}))
 
-(defmethod update-program ())
+(defmethod update-program-data (program-id)
+  "Update the program data for the specified program. To update or add metadata, use the Patch endpoint instead."
+  (dex:put #U{*ibmq-server*}/programs/{program-id}/data))
 
-(defmethod make-program-public ())
+(defmethod set-program-public (program-id)
+  "Make a program that you uploaded publicly available. Others will be able to view and run the program, but only you will be able to edit it."
+  (dex:put #U{*ibmq-server*}/programs/{program-id}/public))
 
-(defmethod make-program-private ())
+(defmethod set-program-private (program-id)
+  "Make a program private. You can only make a program private if you uploaded it."
+  (dex:put #U{*ibmq-server*}/programs/{program-id}/private))

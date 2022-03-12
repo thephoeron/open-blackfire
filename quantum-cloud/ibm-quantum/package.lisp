@@ -28,14 +28,14 @@
            ;; Auth
            #:clear-authorization-cache
            ;; Programs
-           #:add-program
+           #:create-program
            #:list-programs
-           #:list-program-details
+           #:get-program
            #:delete-program
-           #:update-program-metadata
            #:update-program
-           #:make-program-public
-           #:make-program-private
+           #:update-program-data
+           #:set-program-public
+           #:set-program-private
            ;; Jobs
            #:list-jobs
            #:run-job
