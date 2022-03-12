@@ -61,11 +61,3 @@
 ;; manually, will check this. But for now a sensible default.
 (defparameter *ibmq-server* "https://runtime-us-east.quantum-computing.ibm.com")
 
-;; DEPRECATE
-;; I don't think I actually need this function. URI-TEMPLATE automatically
-;; captures lexical bindings in template expansion, so I should be able to just
-;; add the URI head as another template variable in the Dexador request form
-(defun ibmq-route (route-string &key &allow-other-keys)
-  "Generate a fully resolved URI for a REST API call from a route template string and arbitrary keyword parameters."
-  (let ((server-url *ibmq-server*))
-    #U{server-url}{route-string}))
