@@ -10,6 +10,7 @@
    (spec)
    (public-p)
    (data))
+  (:metaclass json-serializable-class)
   (:documentation ""))
 
 (defclass program-response ()
@@ -22,13 +23,15 @@
    (data)
    (creation-date)
    (update-date))
+  (:metaclass json-serializable-class)
   (:documentation ""))
 
 (defclass programs-response ()
-  ((programs :type (vector program-response *))
+  ((programs :json-type (:list program-response))
    (count)
    (offset)
    (limit))
+  (:metaclass json-serializable-class)
   (:documentation ""))
 
 (defclass program-metadata ()
@@ -37,6 +40,7 @@
    (description)
    (spec)
    (public-p))
+  (:metaclass json-serializable-class)
   (:documentation ""))
 
 (defclass program-update ()
@@ -44,6 +48,7 @@
    (cost)
    (description)
    (spec))
+  (:metaclass json-serializable-class)
   (:documentation ""))
 
 (defclass job-run-params ()
@@ -55,6 +60,7 @@
    (params)
    (runtime)
    (log-level))
+  (:metaclass json-serializable-class)
   (:documentation ""))
 
 (defclass job-response ()
@@ -63,54 +69,64 @@
    (group)
    (project)
    (backend)
-   (state :type job-state)
-   (status :type job-status)
+   (state :json-type job-state)
+   (status :json-type job-status)
    (params)
    (program)
    (created)
    (runtime))
+  (:metaclass json-serializable-class)
   (:documentation ""))
 
 (defclass job-create-response ()
   ((id))
+  (:metaclass json-serializable-class)
   (:documentation ""))
 
 (defclass jobs-response ()
-  ((jobs :type (vector job-response *))
+  ((jobs :json-type (:list job-response))
    (count)
    (offset)
    (limit))
+  (:metaclass json-serializable-class)
   (:documentation ""))
 
 ;; Replace this with a member type
 (defclass job-status ()
   (())
+  (:metaclass json-serializable-class)
   (:documentation ""))
 
 (defclass job-state ()
   ((status)
    (reason))
+  (:metaclass json-serializable-class)
   (:documentation ""))
 
 (defclass error-container ()
   ((trace)
    (errors))
+  (:metaclass json-serializable-class)
   (:documentation ""))
 
 (defclass devices-response ()
   ((devices))
+  (:metaclass json-serializable-class)
   (:documentation ""))
 
 (defclass device-properties-response ()
   ())
+  (:metaclass json-serializable-class)
   (:documentation ""))
 
 (defclass device-configuration-response ()
   ()
+  (:metaclass json-serializable-class)
   (:documentation ""))
 
 (defclass device-defaults-response ()
   ()
+  (:metaclass json-serializable-class)
   (:documentation ""))
 
 (defclass device-status-response ()
@@ -119,4 +135,5 @@
    (message)
    (length-queue)
    (backend-version))
+  (:metaclass json-serializable-class)
   (:documentation ""))
