@@ -51,7 +51,7 @@
            #:get-device-properties
            #:get-device-configuration
            #:get-device-status
-           #:get-device-default-settings))
+           #:get-device-defaults))
 
 (in-package :open-blackfire/quantum-cloud/ibm-quantum)
 

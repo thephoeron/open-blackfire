@@ -3,7 +3,9 @@
 
 (in-package :open-blackfire/quantum-cloud/ibm-quantum)
 
-(defmethod add-program ())
+(defmethod add-program ()
+  ""
+  )
 
 (defmethod list-programs ())
 
