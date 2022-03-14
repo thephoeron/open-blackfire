@@ -6,7 +6,7 @@
 (defmethod clear-authorization-cache ()
   "Clear the authorization cache for the specified user. This is useful if a user's role changes."
   (multiple-value-bind (body status response-headers uri stream)
-      (dex:post #U{*ibmq-server*}/authorize)
+      (dex:post #U{*ibmq-server*}/authorize :headers (list (cons "x-access-token" *ibmq-api-key*)))
     (case status
       ;; 204 Cache successfully deleted
       (204)

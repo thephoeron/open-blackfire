@@ -5,7 +5,7 @@
 
 (defpackage open-blackfire/quantum-cloud/ibm-quantum
   (:nicknames obfq/ibm)
-  (:use cl protocol-phi uri-template yason json-mop)
+  (:use cl protocol-phi uri-template yason json-mop simple-config)
   (:export #:*ibmq-server*
            ;; Component Objects
            #:program-create
@@ -57,9 +57,15 @@
 
 (enable-uri-template-syntax)
 
+;; Load BLACKFIRE config file
+(load-config "~/.blackfirerc")
+
 ;; IIRC, I think users have to configure the server as well as their API Key
 ;; manually, will check this. But for now a sensible default.
 (defparameter *ibmq-server* "https://runtime-us-east.quantum-computing.ibm.com")
+
+;; Define IBM Quantum API Key from BLACKFIRE config file
+(defparameter *ibmq-api-key* (config :ibmq))
 
 ;; Some YASON configuration
 (setf yason:*parse-json-booleans-as-symbols* t

@@ -5,20 +5,20 @@
 
 (defmethod list-devices ()
   "Returns a list of all the devices your service instance has access to."
-  (dex:get #U{*ibmq-server*}/devices))
+  (dex:get #U{*ibmq-server*}/devices :headers (list (cons "x-access-token" *ibmq-api-key*))))
 
 (defmethod get-device-properties (device-id)
   "Returns the properties for the specified device."
-  (dex:get #U{*ibmq-server*}/devices/{device-id}/properties))
+  (dex:get #U{*ibmq-server*}/devices/{device-id}/properties :headers (list (cons "x-access-token" *ibmq-api-key*))))
 
 (defmethod get-device-configuration (device-id)
   "Returns the configuration for the specified device."
-  (dex:get #U{*ibmq-server*}/devices/{device-id}/configuration))
+  (dex:get #U{*ibmq-server*}/devices/{device-id}/configuration :headers (list (cons "x-access-token" *ibmq-api-key*))))
 
 (defmethod get-device-status (device-id)
   "Returns the status for the specified device ID."
-  (dex:get #U{*ibmq-server*}/devices/{device-id}/status))
+  (dex:get #U{*ibmq-server*}/devices/{device-id}/status :headers (list (cons "x-access-token" *ibmq-api-key*))))
 
 (defmethod get-device-defaults (device-id)
   "Returns the defaults for the specified device."
-  (dex:get #U{*ibmq-server*}/devices/{device-id}/defaults))
+  (dex:get #U{*ibmq-server*}/devices/{device-id}/defaults :headers (list (cons "x-access-token" *ibmq-api-key*))))
