@@ -5,9 +5,12 @@
 
 (defmethod clear-authorization-cache ()
   "Clear the authorization cache for the specified user. This is useful if a user's role changes."
-  (handler-case (dex:post #U{*ibmq-server*}/authorize)
-    ;; 204 Cache successfully deleted
-    ;; 500 Internal error
-    (dex:http-request-failed (e)
-      ;; also return an ERROR-CONTAINER response object as specified by the OpenAPI definition
-      (format *error-output* "The server at ~S returned ~D" *ibmq-server* (dex:response-status e)))))
+  (multiple-value-bind (body status response-headers uri stream)
+      (dex:post #U{*ibmq-server*}/authorize)
+    (case status
+      ;; 204 Cache successfully deleted
+      (204)
+      ;; 500 Internal error
+      ;; return an ERROR-CONTAINER response object as specified by the OpenAPI definition
+      (500)
+      (otherwise))))
