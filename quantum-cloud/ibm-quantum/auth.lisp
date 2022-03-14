@@ -9,8 +9,8 @@
       (dex:post #U{*ibmq-server*}/authorize :headers (list (cons "x-access-token" *ibmq-api-key*)))
     (case status
       ;; 204 Cache successfully deleted
-      (204)
+      (204 t)
       ;; 500 Internal error
       ;; return an ERROR-CONTAINER response object as specified by the OpenAPI definition
-      (500)
-      (otherwise))))
+      (500 (json-to-clos body 'error-container))
+      (otherwise nil))))
