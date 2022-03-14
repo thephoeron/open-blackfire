@@ -27,7 +27,7 @@
                yason
                json-mop
                ; json-schema
-               )
+               cl-strings)
   :serial t
   :components ((:module protocol-phi
                 :components ((:file "package")
