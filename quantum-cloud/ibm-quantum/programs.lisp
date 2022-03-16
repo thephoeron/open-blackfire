@@ -3,10 +3,18 @@
 
 (in-package :open-blackfire/quantum-cloud/ibm-quantum)
 
-(defmethod create-program ()
+(defmethod create-program (&key name cost description spec public-p data)
   "Upload a new quantum program."
   (multiple-value-bind (body status response-headers uri stream)
-      (dex:post #U{*ibmq-server*}/programs :headers (list (cons "x-access-token" *ibmq-api-key*)))
+      (dex:post #U{*ibmq-server*}/programs
+                :headers (list (cons "x-access-token" *ibmq-api-key*))
+                :body (yason:encode (make-instance 'program-create
+                                      :name name
+                                      :cost cost
+                                      :description description
+                                      :spec spec
+                                      :public-p public-p
+                                      :data data)))
     (case status
       (201 (json-to-clos body 'program-response))
       (400 (json-to-clos body 'error-container))
