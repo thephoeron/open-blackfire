@@ -36,12 +36,7 @@
                              (:file "quantum-objects")))
                (:module quantum-cloud
                 :components ((:module ibm-quantum
-                              :components ((:file "package")
-                                           (:file "component-objects")
-                                           (:file "programs")
-                                           (:file "jobs")
-                                           (:file "devices")
-                                           (:file "auth")))))
+                              :components ((:file "package")))))
                (:file "blackfire"))
   :perform (load-op :after (op c)
              (provide :blackfire)
