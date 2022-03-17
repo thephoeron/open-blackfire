@@ -70,4 +70,4 @@
 ;; Some YASON configuration
 (setf yason:*parse-json-booleans-as-symbols* t
       yason:*parse-json-null-as-keyword* t
-      yason:*parse-object-key-fun* #'cl-strings:kebab-case)
+      yason:*parse-object-key-fn* #'cl-strings:kebab-case)

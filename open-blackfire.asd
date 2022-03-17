@@ -57,11 +57,9 @@
   :mailto "thephoeron@protonmail.com"
   :version (:read-file-form "VERSION")
   :license "MIT"
-  :depends-on ()
+  :depends-on (open-blackfire)
   :serial t
-  :components ()
-  :perform ()
-  :in-order-to ())
+  :components ())
 
 (defsystem open-blackfire/test
   :name "OPEN-BLACKFIRE/TEST"
@@ -72,8 +70,6 @@
   :mailto "thephoeron@protonmail.com"
   :version (:read-file-form "VERSION")
   :license "MIT"
-  :depends-on ()
+  :depends-on (open-blackfire)
   :serial t
-  :components ()
-  :perform ()
-  :in-order-to ())
+  :components ())

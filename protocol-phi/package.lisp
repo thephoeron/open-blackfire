@@ -7,7 +7,7 @@
   (:nicknames blackfire/protocol-phi
               protocol-phi
               phi)
-  (:use cl)
+  (:use c2cl)
   (:export ;; quantum objects
            #:blackfire-class
            #:blackfire-object

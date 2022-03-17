@@ -6,8 +6,12 @@
 (defclass blackfire-class (standard-class)
   ())
 
+(defmethod validate-superclass ((class blackfire-class) (superclass standard-class))
+  t)
+
 (defclass blackfire-object (standard-object)
-  ())
+  ()
+  (:metaclass blackfire-class))
 
 (defclass quantum-object (blackfire-object)
   ()
