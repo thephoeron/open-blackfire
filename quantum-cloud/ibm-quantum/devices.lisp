@@ -6,7 +6,7 @@
 (defmethod list-devices ()
   "Returns a list of all the devices your service instance has access to."
   (multiple-value-bind (body status response-headers uri stream)
-      (dex:get #U{*ibmq-server*}/devices :headers (list (cons "x-access-token" *ibmq-api-key*)))
+      (dex:get #Uhttps://{*ibmq-server*}/v2/devices :headers (list (cons "Authorization" *ibmq-api-key*)))
     (case status
       (200 (json-to-clos body 'devices-response))
       (otherwise nil))))

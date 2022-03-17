@@ -1,0 +1,2838 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "IBM Quantum API",
+        "version": "0.123.1",
+        "description": "",
+        "contact": {}
+    },
+    "paths": {
+        "/Network/bookings/v2": {
+            "get": {
+                "x-controller-name": "Get Backend Information",
+                "x-operation-name": "getUserBookings",
+                "tags": [
+                    "Get Backend Information"
+                ],
+                "x-operation-order": 7,
+                "summary": "Get bookings for a user",
+                "responses": {
+                    "200": {
+                        "description": "User bookings",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Booking"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "operationId": "Get Backend Information.getUserBookings"
+            }
+        },
+        "/Network/devices/{backendName}/bookings/v2": {
+            "get": {
+                "x-controller-name": "Get Backend Information",
+                "x-operation-name": "getDeviceBookingsByBackendName",
+                "tags": [
+                    "Get Backend Information"
+                ],
+                "x-operation-order": 6,
+                "summary": "Get bookings for a device by backend name",
+                "responses": {
+                    "200": {
+                        "description": "Device bookings",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Booking"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "backendName",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true
+                    },
+                    {
+                        "name": "initialDate",
+                        "in": "query",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "endDate",
+                        "in": "query",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "operationId": "Get Backend Information.getDeviceBookingsByBackendName"
+            }
+        },
+        "/Network/{hubName}/Groups/{groupName}/Projects/{projectName}/Jobs/status/v/1": {
+            "get": {
+                "x-controller-name": "Get Job Information",
+                "x-operation-name": "getMyJobsStatusesFromProjectVersioned",
+                "tags": [
+                    "Get Job Information"
+                ],
+                "x-operation-order": 2,
+                "summary": "Get my jobs statuses from a project of a network",
+                "responses": {
+                    "200": {
+                        "description": "A list of job statuses",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/JobStatus"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "hubName",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true
+                    },
+                    {
+                        "name": "groupName",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true
+                    },
+                    {
+                        "name": "projectName",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true
+                    },
+                    {
+                        "name": "filter",
+                        "in": "query",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "additionalProperties": true
+                                }
+                            }
+                        }
+                    }
+                ],
+                "operationId": "Get Job Information.getMyJobsStatusesFromProjectVersioned"
+            }
+        },
+        "/Network/{hubName}/Groups/{groupName}/Projects/{projectName}/Jobs/status": {
+            "get": {
+                "x-controller-name": "Get Job Information",
+                "x-operation-name": "getMyJobsStatusesFromProject",
+                "tags": [
+                    "Get Job Information"
+                ],
+                "x-operation-order": 1,
+                "summary": "Get my jobs statuses from a project of a network",
+                "responses": {
+                    "200": {
+                        "description": "A list of job statuses",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/JobStatus"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "deprecated": true,
+                "parameters": [
+                    {
+                        "name": "hubName",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true
+                    },
+                    {
+                        "name": "groupName",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true
+                    },
+                    {
+                        "name": "projectName",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true
+                    },
+                    {
+                        "name": "filter",
+                        "in": "query",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "additionalProperties": true
+                                }
+                            }
+                        }
+                    }
+                ],
+                "operationId": "Get Job Information.getMyJobsStatusesFromProject"
+            }
+        },
+        "/Network/{hubName}/Groups/{groupName}/Projects/{projectName}/Jobs/{jobId}/cancel": {
+            "post": {
+                "x-controller-name": "Other Job Actions",
+                "x-operation-name": "cancelJob",
+                "tags": [
+                    "Other Job Actions"
+                ],
+                "x-operation-order": 2,
+                "summary": "Cancel a job inside hierarchy Network/Group/Project",
+                "responses": {
+                    "200": {
+                        "description": "Cancelled",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "cancelled": {
+                                            "type": "boolean"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "hubName",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true
+                    },
+                    {
+                        "name": "groupName",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true
+                    },
+                    {
+                        "name": "projectName",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true
+                    },
+                    {
+                        "name": "jobId",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true
+                    }
+                ],
+                "operationId": "Other Job Actions.cancelJob"
+            }
+        },
+        "/Network/{hubName}/Groups/{groupName}/Projects/{projectName}/Jobs/{jobId}/jobDataUploaded": {
+            "post": {
+                "x-controller-name": "Run Job",
+                "x-operation-name": "jobDataUploaded",
+                "tags": [
+                    "Run Job"
+                ],
+                "x-operation-order": 3,
+                "summary": "Notify the server that the job data has been uploaded",
+                "responses": {
+                    "200": {
+                        "description": "Job",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/JobDataUploadedResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "hubName",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true
+                    },
+                    {
+                        "name": "groupName",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true
+                    },
+                    {
+                        "name": "projectName",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true
+                    },
+                    {
+                        "name": "jobId",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true
+                    }
+                ],
+                "operationId": "Run Job.jobDataUploaded"
+            }
+        },
+        "/Network/{hubName}/Groups/{groupName}/Projects/{projectName}/Jobs/{jobId}/jobDownloadUrl": {
+            "get": {
+                "x-controller-name": "Get Job Information",
+                "x-operation-name": "getJobDownloadUrl",
+                "tags": [
+                    "Get Job Information"
+                ],
+                "x-operation-order": 4,
+                "summary": "Get job download URL",
+                "responses": {
+                    "200": {
+                        "description": "Job download URL",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ObjectStorageUrl"
+                                }
+                            }
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "hubName",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true
+                    },
+                    {
+                        "name": "groupName",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true
+                    },
+                    {
+                        "name": "projectName",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true
+                    },
+                    {
+                        "name": "jobId",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true
+                    }
+                ],
+                "operationId": "Get Job Information.getJobDownloadUrl"
+            }
+        },
+        "/Network/{hubName}/Groups/{groupName}/Projects/{projectName}/Jobs/{jobId}/jobUploadUrl": {
+            "get": {
+                "x-controller-name": "Run Job",
+                "x-operation-name": "getJobUploadUrl",
+                "tags": [
+                    "Run Job"
+                ],
+                "x-operation-order": 2,
+                "summary": "Get job upload URL",
+                "responses": {
+                    "200": {
+                        "description": "Job upload URL",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ObjectStorageUrl"
+                                }
+                            }
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "hubName",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true
+                    },
+                    {
+                        "name": "groupName",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true
+                    },
+                    {
+                        "name": "projectName",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true
+                    },
+                    {
+                        "name": "jobId",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true
+                    }
+                ],
+                "operationId": "Run Job.getJobUploadUrl"
+            }
+        },
+        "/Network/{hubName}/Groups/{groupName}/Projects/{projectName}/Jobs/{jobId}/properties": {
+            "get": {
+                "x-controller-name": "Get Job Information",
+                "x-operation-name": "getJobProperties",
+                "tags": [
+                    "Get Job Information"
+                ],
+                "x-operation-order": 3,
+                "summary": "Get job properties",
+                "responses": {
+                    "200": {
+                        "description": "Device properties",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/DeviceProperties"
+                                }
+                            }
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "hubName",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true
+                    },
+                    {
+                        "name": "groupName",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true
+                    },
+                    {
+                        "name": "projectName",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true
+                    },
+                    {
+                        "name": "jobId",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true
+                    }
+                ],
+                "operationId": "Get Job Information.getJobProperties"
+            }
+        },
+        "/Network/{hubName}/Groups/{groupName}/Projects/{projectName}/Jobs/{jobId}/resultDownloadUrl": {
+            "get": {
+                "x-controller-name": "Get Job Result",
+                "x-operation-name": "getResultDownloadUrl",
+                "tags": [
+                    "Get Job Result"
+                ],
+                "x-operation-order": 3,
+                "summary": "Get result download URL",
+                "responses": {
+                    "200": {
+                        "description": "Result download URL",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ObjectStorageUrl"
+                                }
+                            }
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "hubName",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true
+                    },
+                    {
+                        "name": "groupName",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true
+                    },
+                    {
+                        "name": "projectName",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true
+                    },
+                    {
+                        "name": "jobId",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true
+                    }
+                ],
+                "operationId": "Get Job Result.getResultDownloadUrl"
+            }
+        },
+        "/Network/{hubName}/Groups/{groupName}/Projects/{projectName}/Jobs/{jobId}/resultDownloaded": {
+            "post": {
+                "x-controller-name": "Get Job Result",
+                "x-operation-name": "jobResultDownloaded",
+                "tags": [
+                    "Get Job Result"
+                ],
+                "x-operation-order": 4,
+                "summary": "Notify the server that the job result has been downloaded",
+                "responses": {
+                    "200": {
+                        "description": "Notification successful?",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "terminated": {
+                                            "type": "boolean"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "hubName",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true
+                    },
+                    {
+                        "name": "groupName",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true
+                    },
+                    {
+                        "name": "projectName",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true
+                    },
+                    {
+                        "name": "jobId",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true
+                    }
+                ],
+                "operationId": "Get Job Result.jobResultDownloaded"
+            }
+        },
+        "/Network/{hubName}/Groups/{groupName}/Projects/{projectName}/Jobs/{jobId}/status/v/1": {
+            "get": {
+                "x-controller-name": "Get Job Information",
+                "x-operation-name": "getJobStatusVersioned",
+                "tags": [
+                    "Get Job Information"
+                ],
+                "x-operation-order": 5,
+                "summary": "Get job status",
+                "responses": {
+                    "200": {
+                        "description": "Job status",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/JobStatus"
+                                }
+                            }
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "hubName",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true
+                    },
+                    {
+                        "name": "groupName",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true
+                    },
+                    {
+                        "name": "projectName",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true
+                    },
+                    {
+                        "name": "jobId",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true
+                    }
+                ],
+                "operationId": "Get Job Information.getJobStatusVersioned"
+            }
+        },
+        "/Network/{hubName}/Groups/{groupName}/Projects/{projectName}/Jobs/{jobId}/status": {
+            "get": {
+                "x-controller-name": "Get Job Information",
+                "x-operation-name": "getJobStatus",
+                "tags": [
+                    "Get Job Information"
+                ],
+                "x-operation-order": 4,
+                "summary": "Get job status",
+                "responses": {
+                    "200": {
+                        "description": "Job status",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/JobStatus"
+                                }
+                            }
+                        }
+                    }
+                },
+                "deprecated": true,
+                "parameters": [
+                    {
+                        "name": "hubName",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true
+                    },
+                    {
+                        "name": "groupName",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true
+                    },
+                    {
+                        "name": "projectName",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true
+                    },
+                    {
+                        "name": "jobId",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true
+                    }
+                ],
+                "operationId": "Get Job Information.getJobStatus"
+            }
+        },
+        "/Network/{hubName}/Groups/{groupName}/Projects/{projectName}/Jobs/{jobId}/v/1": {
+            "get": {
+                "x-controller-name": "Get Job Result",
+                "x-operation-name": "getJobVersioned",
+                "tags": [
+                    "Get Job Result"
+                ],
+                "x-operation-order": 2,
+                "summary": "Get Job By JobId for Provider",
+                "responses": {
+                    "200": {
+                        "description": "Job",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Job"
+                                }
+                            }
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "hubName",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true
+                    },
+                    {
+                        "name": "groupName",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true
+                    },
+                    {
+                        "name": "projectName",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true
+                    },
+                    {
+                        "name": "jobId",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true
+                    },
+                    {
+                        "name": "filter",
+                        "in": "query",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "additionalProperties": true
+                                }
+                            }
+                        }
+                    }
+                ],
+                "operationId": "Get Job Result.getJobVersioned"
+            }
+        },
+        "/Network/{hubName}/Groups/{groupName}/Projects/{projectName}/Jobs/{jobId}": {
+            "put": {
+                "x-controller-name": "Other Job Actions",
+                "x-operation-name": "updateJob",
+                "tags": [
+                    "Other Job Actions"
+                ],
+                "x-operation-order": 1,
+                "summary": "Update some metadata for a specific Job inside hierarchy Network/Group/Project",
+                "responses": {
+                    "200": {
+                        "description": "Job",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Job"
+                                }
+                            }
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "hubName",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true
+                    },
+                    {
+                        "name": "groupName",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true
+                    },
+                    {
+                        "name": "projectName",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true
+                    },
+                    {
+                        "name": "jobId",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/JobUpdate"
+                            }
+                        }
+                    },
+                    "required": true,
+                    "description": "Job update data",
+                    "x-parameter-index": 4
+                },
+                "operationId": "Other Job Actions.updateJob"
+            },
+            "get": {
+                "x-controller-name": "Get Job Result",
+                "x-operation-name": "getJob",
+                "tags": [
+                    "Get Job Result"
+                ],
+                "x-operation-order": 1,
+                "summary": "Get Job By JobId for Provider",
+                "responses": {
+                    "200": {
+                        "description": "Job",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Job"
+                                }
+                            }
+                        }
+                    }
+                },
+                "deprecated": true,
+                "parameters": [
+                    {
+                        "name": "hubName",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true
+                    },
+                    {
+                        "name": "groupName",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true
+                    },
+                    {
+                        "name": "projectName",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true
+                    },
+                    {
+                        "name": "jobId",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true
+                    },
+                    {
+                        "name": "filter",
+                        "in": "query",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "additionalProperties": true
+                                }
+                            }
+                        }
+                    }
+                ],
+                "operationId": "Get Job Result.getJob"
+            }
+        },
+        "/Network/{hubName}/Groups/{groupName}/Projects/{projectName}/Jobs": {
+            "post": {
+                "x-controller-name": "Run Job",
+                "x-operation-name": "runJob",
+                "tags": [
+                    "Run Job"
+                ],
+                "x-operation-order": 1,
+                "summary": "Run job inside hierarchy Network/Group/Project",
+                "responses": {
+                    "200": {
+                        "description": "Job info",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/RunJobResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "hubName",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true
+                    },
+                    {
+                        "name": "groupName",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true
+                    },
+                    {
+                        "name": "projectName",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/JobInput"
+                            }
+                        }
+                    },
+                    "required": true,
+                    "description": "Job Input",
+                    "x-parameter-index": 3
+                },
+                "operationId": "Run Job.runJob"
+            }
+        },
+        "/Network/{hubName}/Groups/{groupName}/Projects/{projectName}/devices/v/1": {
+            "get": {
+                "x-controller-name": "Get Backend Information",
+                "x-operation-name": "getProjectDevicesWithVersion",
+                "tags": [
+                    "Get Backend Information"
+                ],
+                "x-operation-order": 1,
+                "summary": "Get devices of project",
+                "responses": {
+                    "200": {
+                        "description": "List of devices",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Device"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "hubName",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true
+                    },
+                    {
+                        "name": "groupName",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true
+                    },
+                    {
+                        "name": "projectName",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true
+                    }
+                ],
+                "operationId": "Get Backend Information.getProjectDevicesWithVersion"
+            }
+        },
+        "/Network/{hubName}/Groups/{groupName}/Projects/{projectName}/devices/{deviceName}/defaults": {
+            "get": {
+                "x-controller-name": "Get Backend Information",
+                "x-operation-name": "getDeviceWithSpecificConfigurationByBackendNameByNameHub",
+                "tags": [
+                    "Get Backend Information"
+                ],
+                "x-operation-order": 2,
+                "summary": "Get Backend Defaults for Network",
+                "responses": {
+                    "200": {
+                        "description": "Device defaults",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/DeviceDefaults"
+                                }
+                            }
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "hubName",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true
+                    },
+                    {
+                        "name": "groupName",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true
+                    },
+                    {
+                        "name": "projectName",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true
+                    },
+                    {
+                        "name": "deviceName",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true
+                    }
+                ],
+                "operationId": "Get Backend Information.getDeviceWithSpecificConfigurationByBackendNameByNameHub"
+            }
+        },
+        "/Network/{hubName}/Groups/{groupName}/Projects/{projectName}/devices/{deviceName}/jobsLimit": {
+            "get": {
+                "x-controller-name": "Get Backend Information",
+                "x-operation-name": "getJobsLimit",
+                "tags": [
+                    "Get Backend Information"
+                ],
+                "x-operation-order": 3,
+                "summary": "Get Job Limits for Provider Backend",
+                "responses": {
+                    "200": {
+                        "description": "Job limits",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/JobsLimit"
+                                }
+                            }
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "hubName",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true
+                    },
+                    {
+                        "name": "groupName",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true
+                    },
+                    {
+                        "name": "projectName",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true
+                    },
+                    {
+                        "name": "deviceName",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true
+                    }
+                ],
+                "operationId": "Get Backend Information.getJobsLimit"
+            }
+        },
+        "/Network/{hubName}/Groups/{groupName}/Projects/{projectName}/devices/{deviceName}/properties": {
+            "get": {
+                "x-controller-name": "Get Backend Information",
+                "x-operation-name": "getDeviceProperties",
+                "tags": [
+                    "Get Backend Information"
+                ],
+                "x-operation-order": 4,
+                "summary": "Get device properties inside a Network",
+                "responses": {
+                    "200": {
+                        "description": "Device properties",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/DeviceProperties"
+                                }
+                            }
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "hubName",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true
+                    },
+                    {
+                        "name": "groupName",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true
+                    },
+                    {
+                        "name": "projectName",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true
+                    },
+                    {
+                        "name": "deviceName",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true
+                    },
+                    {
+                        "name": "version",
+                        "in": "query",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "filter",
+                        "in": "query",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "additionalProperties": true
+                                }
+                            }
+                        }
+                    }
+                ],
+                "operationId": "Get Backend Information.getDeviceProperties"
+            }
+        },
+        "/Network/{hubName}/Groups/{groupName}/Projects/{projectName}/devices/{deviceName}/queue/status": {
+            "get": {
+                "x-controller-name": "Get Backend Information",
+                "x-operation-name": "getDeviceQueueStatus",
+                "tags": [
+                    "Get Backend Information"
+                ],
+                "x-operation-order": 5,
+                "summary": "Get device queue status inside a network",
+                "responses": {
+                    "200": {
+                        "description": "Backend status",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/BackendStatus"
+                                }
+                            }
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "hubName",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true
+                    },
+                    {
+                        "name": "groupName",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true
+                    },
+                    {
+                        "name": "projectName",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true
+                    },
+                    {
+                        "name": "deviceName",
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true
+                    }
+                ],
+                "operationId": "Get Backend Information.getDeviceQueueStatus"
+            }
+        },
+        "/Network": {
+            "get": {
+                "x-controller-name": "Get Providers Information",
+                "x-operation-name": "allHubsAsCollaborator",
+                "tags": [
+                    "Get Providers Information"
+                ],
+                "x-operation-order": 1,
+                "summary": "Get all where the user is collaborator",
+                "responses": {
+                    "200": {
+                        "description": "List of hubs",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Hub"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "includeProjectCapabilities",
+                        "in": "query",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "additionalProperties": true
+                                }
+                            }
+                        }
+                    }
+                ],
+                "operationId": "Get Providers Information.allHubsAsCollaborator"
+            }
+        },
+        "/health": {
+            "get": {
+                "x-controller-name": "Health Api",
+                "x-operation-name": "health",
+                "tags": [
+                    "Health Api"
+                ],
+                "x-operation-order": 1,
+                "summary": "Shows the current health of API services",
+                "responses": {
+                    "200": {
+                        "description": "Health response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HealthResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "operationId": "Health Api.health"
+            }
+        },
+        "/users/loginWithToken": {
+            "post": {
+                "x-controller-name": "Login",
+                "x-operation-name": "loginWithApiToken",
+                "tags": [
+                    "Login"
+                ],
+                "x-operation-order": 1,
+                "security": [],
+                "summary": "Log in with an API token to get an access token",
+                "responses": {
+                    "200": {
+                        "description": "Access token",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/AccessToken"
+                                }
+                            }
+                        }
+                    }
+                },
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ApiToken"
+                            }
+                        }
+                    },
+                    "description": "API token",
+                    "required": true
+                },
+                "operationId": "Login.loginWithApiToken"
+            }
+        },
+        "/users/me": {
+            "get": {
+                "x-controller-name": "Get User Information",
+                "x-operation-name": "me",
+                "tags": [
+                    "Get User Information"
+                ],
+                "x-operation-order": 1,
+                "summary": "Get user info",
+                "responses": {
+                    "200": {
+                        "description": "User instance",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/User"
+                                }
+                            }
+                        }
+                    }
+                },
+                "operationId": "Get User Information.me"
+            }
+        },
+        "/version": {
+            "get": {
+                "x-controller-name": "Version API",
+                "x-operation-name": "version",
+                "tags": [
+                    "Version API"
+                ],
+                "x-operation-order": 1,
+                "summary": "Shows the current versions of API services",
+                "responses": {
+                    "200": {
+                        "description": "Version response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/VersionResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "operationId": "Version API.version"
+            }
+        }
+    },
+    "components": {
+        "securitySchemes": {
+            "API-Token": {
+                "type": "apiKey",
+                "name": "access_token",
+                "in": "query"
+            }
+        },
+        "schemas": {
+            "Check": {
+                "title": "Check",
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string"
+                    },
+                    "status": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "name",
+                    "status"
+                ],
+                "additionalProperties": false
+            },
+            "HealthResponse": {
+                "title": "HealthResponse",
+                "type": "object",
+                "properties": {
+                    "status": {
+                        "type": "string"
+                    },
+                    "checks": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Check"
+                        }
+                    }
+                },
+                "required": [
+                    "status"
+                ],
+                "additionalProperties": false
+            },
+            "Hub": {
+                "title": "Hub",
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string"
+                    },
+                    "title": {
+                        "type": "string"
+                    },
+                    "description": {
+                        "type": "string"
+                    },
+                    "creationDate": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "deleted": {
+                        "type": "boolean"
+                    },
+                    "ui": {
+                        "type": "object"
+                    },
+                    "groups": {
+                        "type": "object"
+                    },
+                    "private": {
+                        "type": "boolean"
+                    },
+                    "licenseNotRequired": {
+                        "type": "boolean"
+                    },
+                    "isDefault": {
+                        "type": "boolean"
+                    }
+                },
+                "required": [
+                    "name",
+                    "title",
+                    "creationDate"
+                ],
+                "additionalProperties": false
+            },
+            "Backend": {
+                "title": "Backend",
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "name"
+                ],
+                "additionalProperties": false
+            },
+            "ObjectStorageInfo": {
+                "title": "ObjectStorageInfo",
+                "type": "object",
+                "properties": {
+                    "downloadQObjectUrlEndpoint": {
+                        "type": "string"
+                    },
+                    "uploadQobjectUrlEndpoint": {
+                        "type": "string"
+                    },
+                    "uploadUrl": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "downloadQObjectUrlEndpoint",
+                    "uploadQobjectUrlEndpoint",
+                    "uploadUrl"
+                ],
+                "additionalProperties": false
+            },
+            "HubInfoHub": {
+                "title": "HubInfoHub",
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string"
+                    },
+                    "priority": {
+                        "type": "number"
+                    }
+                },
+                "required": [
+                    "name",
+                    "priority"
+                ],
+                "additionalProperties": false
+            },
+            "HubInfoGroup": {
+                "title": "HubInfoGroup",
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string"
+                    },
+                    "priority": {
+                        "type": "number"
+                    }
+                },
+                "required": [
+                    "name",
+                    "priority"
+                ],
+                "additionalProperties": false
+            },
+            "HubInfoProject": {
+                "title": "HubInfoProject",
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string"
+                    },
+                    "priority": {
+                        "type": "number"
+                    }
+                },
+                "required": [
+                    "name",
+                    "priority"
+                ],
+                "additionalProperties": false
+            },
+            "HubInfo": {
+                "title": "HubInfo",
+                "type": "object",
+                "properties": {
+                    "hub": {
+                        "$ref": "#/components/schemas/HubInfoHub"
+                    },
+                    "group": {
+                        "$ref": "#/components/schemas/HubInfoGroup"
+                    },
+                    "project": {
+                        "$ref": "#/components/schemas/HubInfoProject"
+                    }
+                },
+                "required": [
+                    "hub",
+                    "group",
+                    "project"
+                ],
+                "additionalProperties": false
+            },
+            "RunJobResponse": {
+                "title": "RunJobResponse",
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string"
+                    },
+                    "kind": {
+                        "type": "string"
+                    },
+                    "seed": {
+                        "type": "string"
+                    },
+                    "backend": {
+                        "$ref": "#/components/schemas/Backend"
+                    },
+                    "status": {
+                        "type": "string"
+                    },
+                    "creationDate": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "objectStorageInfo": {
+                        "$ref": "#/components/schemas/ObjectStorageInfo"
+                    },
+                    "allowObjectStorage": {
+                        "type": "boolean"
+                    },
+                    "summaryData": {
+                        "type": "object"
+                    },
+                    "summary": {
+                        "type": "object"
+                    },
+                    "timePerStep": {
+                        "type": "object"
+                    },
+                    "error": {
+                        "type": "object"
+                    },
+                    "ip": {
+                        "type": "object"
+                    },
+                    "hubInfo": {
+                        "$ref": "#/components/schemas/HubInfo"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "tags": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    "endDate": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "cost": {
+                        "type": "number"
+                    },
+                    "shareLevel": {
+                        "type": "string"
+                    },
+                    "userId": {
+                        "type": "string"
+                    },
+                    "runMode": {
+                        "type": "string"
+                    },
+                    "experimentTag": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "id",
+                    "kind",
+                    "backend",
+                    "status",
+                    "creationDate",
+                    "hubInfo",
+                    "userId"
+                ],
+                "additionalProperties": false
+            },
+            "JobInput": {
+                "title": "JobInput",
+                "type": "object",
+                "properties": {
+                    "allowObjectStorage": {
+                        "type": "boolean"
+                    },
+                    "backend": {
+                        "$ref": "#/components/schemas/Backend"
+                    },
+                    "shareLevel": {
+                        "type": "string"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "tags": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    "experimentTag": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "allowObjectStorage",
+                    "backend"
+                ],
+                "additionalProperties": false
+            },
+            "ObjectStorageUrl": {
+                "title": "ObjectStorageUrl",
+                "type": "object",
+                "properties": {
+                    "url": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "url"
+                ],
+                "additionalProperties": false
+            },
+            "Job": {
+                "title": "Job",
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string"
+                    },
+                    "kind": {
+                        "type": "string"
+                    },
+                    "backend": {
+                        "$ref": "#/components/schemas/Backend"
+                    },
+                    "status": {
+                        "type": "string"
+                    },
+                    "creationDate": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "summaryData": {
+                        "type": "object"
+                    },
+                    "timePerStep": {
+                        "type": "object"
+                    },
+                    "error": {
+                        "type": "object"
+                    },
+                    "ip": {
+                        "type": "object"
+                    },
+                    "hubInfo": {
+                        "$ref": "#/components/schemas/HubInfo"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "tags": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    "endDate": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "cost": {
+                        "type": "number"
+                    },
+                    "shareLevel": {
+                        "type": "string"
+                    },
+                    "userId": {
+                        "type": "string"
+                    },
+                    "runMode": {
+                        "type": "string"
+                    },
+                    "experimentTag": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "id",
+                    "kind",
+                    "backend",
+                    "status",
+                    "creationDate",
+                    "hubInfo",
+                    "userId"
+                ],
+                "additionalProperties": false
+            },
+            "JobDataUploadedResponse": {
+                "title": "JobDataUploadedResponse",
+                "type": "object",
+                "properties": {
+                    "job": {
+                        "$ref": "#/components/schemas/Job"
+                    }
+                },
+                "required": [
+                    "job"
+                ],
+                "additionalProperties": false
+            },
+            "InfoQueue": {
+                "title": "InfoQueue",
+                "type": "object",
+                "properties": {
+                    "status": {
+                        "type": "string"
+                    },
+                    "position": {
+                        "type": "number"
+                    },
+                    "hubPriority": {
+                        "type": "number"
+                    },
+                    "groupPriority": {
+                        "type": "number"
+                    },
+                    "projectPriority": {
+                        "type": "number"
+                    },
+                    "estimatedStartTime": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "estimatedCompleteTime": {
+                        "type": "string",
+                        "format": "date-time"
+                    }
+                },
+                "required": [
+                    "status",
+                    "position"
+                ],
+                "additionalProperties": true
+            },
+            "JobStatus": {
+                "title": "JobStatus",
+                "type": "object",
+                "properties": {
+                    "status": {
+                        "type": "string"
+                    },
+                    "kind": {
+                        "type": "string"
+                    },
+                    "creationDate": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "endDate": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "id": {
+                        "type": "string"
+                    },
+                    "backend": {
+                        "$ref": "#/components/schemas/Backend"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "tags": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    "hubInfo": {
+                        "$ref": "#/components/schemas/HubInfo"
+                    },
+                    "shareLevel": {
+                        "type": "string"
+                    },
+                    "infoQueue": {
+                        "$ref": "#/components/schemas/InfoQueue"
+                    },
+                    "experimentTag": {
+                        "type": "string"
+                    }
+                },
+                "additionalProperties": false
+            },
+            "Parameter": {
+                "title": "Parameter",
+                "type": "object",
+                "properties": {
+                    "date": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "unit": {
+                        "type": "string"
+                    },
+                    "value": {
+                        "type": "number"
+                    }
+                },
+                "additionalProperties": true
+            },
+            "DevicePropsGate": {
+                "title": "DevicePropsGate",
+                "type": "object",
+                "properties": {
+                    "gate": {
+                        "type": "string"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "parameters": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Parameter"
+                        }
+                    },
+                    "qubits": {
+                        "type": "array",
+                        "items": {
+                            "type": "number"
+                        }
+                    }
+                },
+                "additionalProperties": true
+            },
+            "Qubit": {
+                "title": "Qubit",
+                "type": "object",
+                "properties": {
+                    "date": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "unit": {
+                        "type": "string"
+                    },
+                    "value": {
+                        "type": "number"
+                    }
+                },
+                "additionalProperties": true
+            },
+            "DeviceProperties": {
+                "title": "DeviceProperties",
+                "type": "object",
+                "properties": {
+                    "backend_name": {
+                        "type": "string"
+                    },
+                    "last_update_date": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "backend_version": {
+                        "type": "string"
+                    },
+                    "gates": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/DevicePropsGate"
+                        }
+                    },
+                    "qubits": {
+                        "type": "array",
+                        "items": {
+                            "type": "array",
+                            "items": {
+                                "title": "Qubit",
+                                "type": "object",
+                                "properties": {
+                                    "date": {
+                                        "type": "string",
+                                        "format": "date-time"
+                                    },
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "unit": {
+                                        "type": "string"
+                                    },
+                                    "value": {
+                                        "type": "number"
+                                    }
+                                },
+                                "additionalProperties": true
+                            }
+                        }
+                    },
+                    "general": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Qubit"
+                        }
+                    }
+                },
+                "required": [
+                    "backend_name",
+                    "last_update_date",
+                    "backend_version",
+                    "gates",
+                    "qubits",
+                    "general"
+                ],
+                "additionalProperties": true
+            },
+            "JobUpdate": {
+                "title": "JobUpdate",
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string"
+                    },
+                    "tags": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    "experimentTag": {
+                        "type": "string"
+                    }
+                },
+                "additionalProperties": false
+            },
+            "Gate": {
+                "title": "Gate",
+                "type": "object",
+                "properties": {
+                    "coupling_map": {
+                        "type": "array",
+                        "items": {
+                            "type": "array",
+                            "items": {
+                                "type": "number"
+                            }
+                        }
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "parameters": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    "qasm_def": {
+                        "type": "string"
+                    }
+                },
+                "additionalProperties": true
+            },
+            "Hamiltonian": {
+                "title": "Hamiltonian",
+                "type": "object",
+                "properties": {
+                    "description": {
+                        "type": "string"
+                    },
+                    "h_latex": {
+                        "type": "string"
+                    },
+                    "h_str": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    "osc": {
+                        "type": "object"
+                    },
+                    "vars": {
+                        "type": "object"
+                    }
+                },
+                "additionalProperties": true
+            },
+            "Device": {
+                "title": "Device",
+                "type": "object",
+                "properties": {
+                    "allow_q_object": {
+                        "type": "boolean"
+                    },
+                    "backend_name": {
+                        "type": "string"
+                    },
+                    "backend_version": {
+                        "type": "string"
+                    },
+                    "n_qubits": {
+                        "type": "number"
+                    },
+                    "basis_gates": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    "gates": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Gate"
+                        }
+                    },
+                    "local": {
+                        "type": "boolean"
+                    },
+                    "simulator": {
+                        "type": "boolean"
+                    },
+                    "conditional": {
+                        "type": "boolean"
+                    },
+                    "open_pulse": {
+                        "type": "boolean"
+                    },
+                    "memory": {
+                        "type": "boolean"
+                    },
+                    "max_shots": {
+                        "type": "number"
+                    },
+                    "coupling_map": {
+                        "type": "array",
+                        "items": {
+                            "type": "array",
+                            "items": {
+                                "type": "number"
+                            }
+                        }
+                    },
+                    "n_uchannels": {
+                        "type": "number"
+                    },
+                    "u_channel_lo": {
+                        "type": "array",
+                        "items": {
+                            "type": "array",
+                            "items": {
+                                "title": "UChannelLo",
+                                "type": "object",
+                                "properties": {
+                                    "q": {
+                                        "type": "number"
+                                    },
+                                    "scale": {
+                                        "type": "array",
+                                        "items": {
+                                            "type": "number"
+                                        }
+                                    }
+                                },
+                                "required": [
+                                    "q",
+                                    "scale"
+                                ],
+                                "additionalProperties": true
+                            }
+                        }
+                    },
+                    "meas_levels": {
+                        "type": "array",
+                        "items": {
+                            "type": "number"
+                        }
+                    },
+                    "qubit_lo_range": {
+                        "type": "array",
+                        "items": {
+                            "type": "array",
+                            "items": {
+                                "type": "number"
+                            }
+                        }
+                    },
+                    "meas_lo_range": {
+                        "type": "array",
+                        "items": {
+                            "type": "array",
+                            "items": {
+                                "type": "number"
+                            }
+                        }
+                    },
+                    "dt": {
+                        "type": "number"
+                    },
+                    "dtm": {
+                        "type": "number"
+                    },
+                    "rep_times": {
+                        "type": "array",
+                        "items": {
+                            "type": "number"
+                        }
+                    },
+                    "meas_kernels": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    "discriminators": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    "credits_required": {
+                        "type": "boolean"
+                    },
+                    "description": {
+                        "type": "string"
+                    },
+                    "hamiltonian": {
+                        "$ref": "#/components/schemas/Hamiltonian"
+                    },
+                    "max_experiments": {
+                        "type": "number"
+                    },
+                    "meas_map": {
+                        "type": "array",
+                        "items": {
+                            "type": "array",
+                            "items": {
+                                "type": "number"
+                            }
+                        }
+                    },
+                    "n_registers": {
+                        "type": "number"
+                    },
+                    "online_date": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "sample_name": {
+                        "type": "string"
+                    },
+                    "url": {
+                        "type": "string"
+                    },
+                    "allow_q_circuit": {
+                        "type": "boolean"
+                    },
+                    "allow_object_storage": {
+                        "type": "boolean"
+                    }
+                },
+                "additionalProperties": true
+            },
+            "CmdDef": {
+                "title": "CmdDef",
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "description": "QASM command name"
+                    },
+                    "qubits": {
+                        "type": "array",
+                        "items": {
+                            "type": "number",
+                            "description": "Qubits to which this command def applies"
+                        }
+                    },
+                    "sequence": {
+                        "type": "array",
+                        "items": {
+                            "type": "object",
+                            "description": "Sequence of pulse instructions"
+                        }
+                    }
+                },
+                "required": [
+                    "name"
+                ],
+                "additionalProperties": false
+            },
+            "Discriminator": {
+                "title": "Discriminator",
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string"
+                    },
+                    "params": {
+                        "type": "object"
+                    }
+                },
+                "additionalProperties": false
+            },
+            "MeasKernel": {
+                "title": "MeasKernel",
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string"
+                    },
+                    "params": {
+                        "type": "object"
+                    }
+                },
+                "additionalProperties": false
+            },
+            "Pulse": {
+                "title": "Pulse",
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "description": "Pulse name"
+                    },
+                    "samples": {
+                        "type": "array",
+                        "items": {
+                            "type": "array",
+                            "description": "JSON representation of a complex vector",
+                            "items": {
+                                "type": "number"
+                            }
+                        }
+                    }
+                },
+                "required": [
+                    "name",
+                    "samples"
+                ],
+                "additionalProperties": false
+            },
+            "DeviceDefaults": {
+                "title": "DeviceDefaults",
+                "type": "object",
+                "properties": {
+                    "buffer": {
+                        "type": "number",
+                        "description": "Default buffer time between pulses"
+                    },
+                    "cmd_def": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/CmdDef"
+                        }
+                    },
+                    "discriminator": {
+                        "$ref": "#/components/schemas/Discriminator"
+                    },
+                    "meas_freq_est": {
+                        "type": "array",
+                        "items": {
+                            "type": "number",
+                            "description": "Backend calibrated qubit frequencies"
+                        }
+                    },
+                    "meas_kernel": {
+                        "$ref": "#/components/schemas/MeasKernel"
+                    },
+                    "pulse_library": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Pulse"
+                        }
+                    },
+                    "qubit_freq_est": {
+                        "type": "array",
+                        "items": {
+                            "type": "number",
+                            "description": "Backend calibrated qubit frequencies"
+                        }
+                    }
+                },
+                "required": [
+                    "buffer",
+                    "meas_freq_est",
+                    "pulse_library",
+                    "qubit_freq_est"
+                ],
+                "additionalProperties": false
+            },
+            "JobsLimit": {
+                "title": "JobsLimit",
+                "type": "object",
+                "properties": {
+                    "maximumJobs": {
+                        "type": "number"
+                    },
+                    "runningJobs": {
+                        "type": "number"
+                    }
+                },
+                "required": [
+                    "maximumJobs",
+                    "runningJobs"
+                ],
+                "additionalProperties": true
+            },
+            "BackendStatus": {
+                "title": "BackendStatus",
+                "type": "object",
+                "properties": {
+                    "state": {
+                        "type": "boolean"
+                    },
+                    "message": {
+                        "type": "string"
+                    },
+                    "status": {
+                        "type": "boolean"
+                    },
+                    "lengthQueue": {
+                        "type": "number"
+                    },
+                    "backend_version": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "state",
+                    "status",
+                    "lengthQueue",
+                    "backend_version"
+                ],
+                "additionalProperties": true
+            },
+            "BookingHubInfoHub": {
+                "title": "BookingHubInfoHub",
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "name"
+                ],
+                "additionalProperties": false
+            },
+            "BookingHubInfoGroup": {
+                "title": "BookingHubInfoGroup",
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "name"
+                ],
+                "additionalProperties": false
+            },
+            "BookingHubInfoProject": {
+                "title": "BookingHubInfoProject",
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "name"
+                ],
+                "additionalProperties": false
+            },
+            "BookingHubInfo": {
+                "title": "BookingHubInfo",
+                "type": "object",
+                "properties": {
+                    "hub": {
+                        "$ref": "#/components/schemas/BookingHubInfoHub"
+                    },
+                    "group": {
+                        "$ref": "#/components/schemas/BookingHubInfoGroup"
+                    },
+                    "project": {
+                        "$ref": "#/components/schemas/BookingHubInfoProject"
+                    }
+                },
+                "required": [
+                    "hub",
+                    "group",
+                    "project"
+                ],
+                "additionalProperties": false
+            },
+            "Booking": {
+                "title": "Booking",
+                "type": "object",
+                "properties": {
+                    "userId": {
+                        "type": "string"
+                    },
+                    "deviceId": {
+                        "type": "string"
+                    },
+                    "hubInfo": {
+                        "$ref": "#/components/schemas/BookingHubInfo"
+                    },
+                    "creationDate": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "initialDate": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "endDate": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "deleted": {
+                        "type": "boolean"
+                    },
+                    "mode": {
+                        "type": "string"
+                    },
+                    "jobsMovedFromPriority": {
+                        "type": "boolean"
+                    },
+                    "id": {
+                        "type": "string"
+                    },
+                    "backendName": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "userId",
+                    "deviceId",
+                    "hubInfo",
+                    "creationDate",
+                    "initialDate",
+                    "endDate",
+                    "id",
+                    "backendName"
+                ],
+                "additionalProperties": false
+            },
+            "Date": {},
+            "AccessToken": {
+                "title": "AccessToken",
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string"
+                    },
+                    "ttl": {
+                        "type": "number"
+                    },
+                    "created": {
+                        "type": "string"
+                    },
+                    "userId": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "id",
+                    "ttl",
+                    "created",
+                    "userId"
+                ],
+                "additionalProperties": false
+            },
+            "ApiToken": {
+                "title": "ApiToken",
+                "type": "object",
+                "properties": {
+                    "apiToken": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "apiToken"
+                ],
+                "additionalProperties": false
+            },
+            "Urls": {
+                "title": "Urls",
+                "type": "object",
+                "description": "Urls Model",
+                "properties": {
+                    "http": {
+                        "type": "string"
+                    },
+                    "ws": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "http",
+                    "ws"
+                ],
+                "additionalProperties": false
+            },
+            "User": {
+                "title": "User",
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string"
+                    },
+                    "email": {
+                        "type": "string"
+                    },
+                    "username": {
+                        "type": "string"
+                    },
+                    "password": {
+                        "type": "string"
+                    },
+                    "userType": {
+                        "type": "object"
+                    },
+                    "firstName": {
+                        "type": "string"
+                    },
+                    "lastName": {
+                        "type": "string"
+                    },
+                    "institution": {
+                        "type": "string"
+                    },
+                    "roles": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    "ibmQNetwork": {
+                        "type": "boolean"
+                    },
+                    "urls": {
+                        "$ref": "#/components/schemas/Urls"
+                    },
+                    "subscriptions": {
+                        "type": "object"
+                    },
+                    "credit": {
+                        "type": "object"
+                    },
+                    "needsRefill": {
+                        "type": "boolean"
+                    },
+                    "emailVerified": {
+                        "type": "boolean"
+                    },
+                    "qNetworkRoles": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    "canScheduleBackends": {
+                        "type": "boolean"
+                    }
+                },
+                "required": [
+                    "id",
+                    "email",
+                    "username",
+                    "urls"
+                ],
+                "additionalProperties": false
+            },
+            "VersionResponse": {
+                "title": "VersionResponse",
+                "type": "object",
+                "properties": {
+                    "api-public": {
+                        "type": "string"
+                    },
+                    "api-app": {
+                        "type": "string"
+                    },
+                    "api-utils": {
+                        "type": "string"
+                    },
+                    "api-app-ws": {
+                        "type": "string"
+                    },
+                    "api-auth": {
+                        "type": "string"
+                    },
+                    "version": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "api-public",
+                    "api-app",
+                    "api-utils",
+                    "api-app-ws",
+                    "api-auth",
+                    "version"
+                ],
+                "additionalProperties": false
+            }
+        }
+    },
+    "security": [
+        {
+            "API-Token": []
+        }
+    ],
+    "tags": [
+        {
+            "name": "Login"
+        },
+        {
+            "name": "Get Providers Information"
+        },
+        {
+            "name": "Run Job"
+        },
+        {
+            "name": "Get Job Result"
+        },
+        {
+            "name": "Get Job Information"
+        },
+        {
+            "name": "Other Job Actions"
+        },
+        {
+            "name": "Get Backend Information"
+        },
+        {
+            "name": "Get User Information"
+        },
+        {
+            "name": "Version API"
+        },
+        {
+            "name": "Health Api"
+        }
+    ],
+    "servers": [
+        {
+            "url": "https://api.quantum-computing.ibm.com/v2"
+        }
+    ]
+}

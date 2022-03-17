@@ -60,12 +60,11 @@
 ;; Load BLACKFIRE config file
 (load-config "~/.blackfirerc")
 
-;; IIRC, I think users have to configure the server as well as their API Key
-;; manually, will check this. But for now a sensible default.
-(defparameter *ibmq-server* "https://runtime-us-east.quantum-computing.ibm.com")
+;; Update base to new IBM Quantum v2 URL
+(defparameter *ibmq-server* "api.quantum-computing.ibm.com")
 
 ;; Define IBM Quantum API Key from BLACKFIRE config file
-(defparameter *ibmq-api-key* (config :ibmq))
+(defparameter *ibmq-api-key* (format nil "apiKey ~A" (config :ibmq)))
 
 ;; Some YASON configuration
 (setf yason:*parse-json-booleans-as-symbols* t
