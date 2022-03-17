@@ -5,7 +5,7 @@
 
 (defpackage open-blackfire/quantum-cloud/ibm-quantum
   (:nicknames obfq/ibm)
-  (:use cl protocol-phi uri-template yason json-mop simple-config)
+  (:use c2cl protocol-phi uri-template yason json-mop simple-config)
   (:export #:*ibmq-server*))
 
 (in-package :open-blackfire/quantum-cloud/ibm-quantum)
