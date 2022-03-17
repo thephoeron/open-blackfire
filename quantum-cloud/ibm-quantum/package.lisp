@@ -21,6 +21,11 @@
 ;; Define IBM Quantum API Key from BLACKFIRE config file
 (defparameter *ibmq-api-key* (format nil "apiKey ~A" (config :ibmq)))
 
+;; IBM Quantum API v2 requires a session-based access token, so all requests
+;; need to check this value, set it to NIL if expired, and if expired or NIL,
+;; use the login endpoint to get a fresh access token object
+(defparameter *ibmq-access-token* nil)
+
 ;; Some YASON configuration
 (setf yason:*parse-json-booleans-as-symbols* t
       yason:*parse-json-null-as-keyword* t
