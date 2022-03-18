@@ -4,17 +4,28 @@
 (in-package :open-blackfire/quantum-cloud/ibm-quantum)
 
 (defclass check ()
-  ()
+  ((name :json-type :string)
+   (status :json-type :string))
   (:metaclass json-serializable-class)
   (:documentation ""))
 
 (defclass health-response ()
-  ()
+  ((status :json-type :string)
+   (checks :json-type (:list check)))
   (:metaclass json-serializable-class)
   (:documentation ""))
 
 (defclass hub ()
-  ()
+  ((name :json-key "name" :json-type :string)
+   (title :json-key "title" :json-type :string)
+   (description :json-key "description" :json-type :string)
+   (creation-date :json-key "creationDate" :json-type :string)
+   (deleted-p :json-key "deleted" :json-type :bool)
+   (ui :json-key "ui" :json-type :hash-table)
+   (groups :json-key "groups" :json-type :hash-table)
+   (private-p :json-key "private" :json-type :bool)
+   (license-not-required-p :json-key "licenseNotRequired" :json-type :bool)
+   (default-p :json-key "isDefault" :json-type :bool))
   (:metaclass json-serializable-class)
   (:documentation ""))
 
@@ -212,4 +223,3 @@
   ()
   (:metaclass json-serializable-class)
   (:documentation ""))
-
