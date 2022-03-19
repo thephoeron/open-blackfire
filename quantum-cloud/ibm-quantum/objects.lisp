@@ -263,8 +263,12 @@
   (:metaclass json-serializable-class)
   (:documentation ""))
 
+;; This JSON Serialization Object looks like it's gonna cause some trouble.
+;; Note the VECTOR over HASH-TABLE JSON-Type
 (defclass cmd-def ()
-  ()
+  ((name :json-key "name" :json-type :string)
+   (qubits :json-key "qubits" :json-type (:vector :number))
+   (cmd-sequence :json-key "sequence" :json-type (:vector :hash-table)))
   (:metaclass json-serializable-class)
   (:documentation ""))
 
