@@ -43,19 +43,19 @@
 
 (defclass hub-info-hub ()
   ((name :json-key "name" :json-type :string)
-   (priority :json-key "priority" :json-type :string))
+   (priority :json-key "priority" :json-type :number))
   (:metaclass json-serializable-class)
   (:documentation ""))
 
 (defclass hub-info-group ()
   ((name :json-key "name" :json-type :string)
-   (priority :json-key "priority" :json-type :string))
+   (priority :json-key "priority" :json-type :number))
   (:metaclass json-serializable-class)
   (:documentation ""))
 
 (defclass hub-info-project ()
   ((name :json-key "name" :json-type :string)
-   (priority :json-key "priority" :json-type :string))
+   (priority :json-key "priority" :json-type :number))
   (:metaclass json-serializable-class)
   (:documentation ""))
 
