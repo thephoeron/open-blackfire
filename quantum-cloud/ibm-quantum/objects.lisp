@@ -186,7 +186,12 @@
   (:documentation ""))
 
 (defclass device-properties ()
-  ()
+  ((backend-name :json-key "backend_name" :json-type :string)
+   (last-update-date :json-key "last_update_date" :json-type :string)
+   (backend-version :json-key "backend_version" :json-type :string)
+   (gates :json-key "gates" :json-type (:list device-props-gate))
+   (qubits :json-key "qubits" :json-type (:list (:vector qubit)))
+   (general :json-key "general" :json-type (:list qubit)))
   (:metaclass json-serializable-class)
   (:documentation ""))
 
