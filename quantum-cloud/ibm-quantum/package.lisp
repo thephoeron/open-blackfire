@@ -31,6 +31,7 @@
            #:job-update
            #:gate
            #:hamiltonian
+           #:u-channel-lo
            #:device
            #:cmd-def
            #:discriminator
