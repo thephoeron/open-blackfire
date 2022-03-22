@@ -273,17 +273,20 @@
   (:documentation ""))
 
 (defclass discriminator ()
-  ()
+  ((name :json-key "name" :json-type :string)
+   (params :json-key "params" :json-type :hash-table))
   (:metaclass json-serializable-class)
   (:documentation ""))
 
 (defclass meas-kernel ()
-  ()
+  ((name :json-key "name" :json-type :string)
+   (params :json-key "params" :json-type :hash-table))
   (:metaclass json-serializable-class)
   (:documentation ""))
 
 (defclass pulse ()
-  ()
+  ((name :json-key "name" :json-type :string)
+   (samples :json-key "samples" :json-type (:vector (:vector :number))))
   (:metaclass json-serializable-class)
   (:documentation ""))
 
