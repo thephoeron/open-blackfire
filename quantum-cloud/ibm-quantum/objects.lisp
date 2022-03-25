@@ -370,7 +370,7 @@
   (:documentation ""))
 
 (defclass api-token ()
-  (api-token :json-key "apiToken" :json-type :string)
+  ((api-token :json-key "apiToken" :json-type :string))
   (:metaclass json-serializable-class)
   (:documentation ""))
 
