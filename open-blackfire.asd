@@ -19,6 +19,7 @@
   :version (:read-file-form "VERSION")
   :license "MIT"
   :depends-on (closer-mop
+               protocol-phi
                alexandria
                serapeum
                dexador
@@ -30,12 +31,9 @@
                cl-strings
                simple-config)
   :serial t
-  :components ((:module protocol-phi
-                :components ((:file "package")
-                             (:file "generic-api")
-                             (:file "quantum-objects")))
-               (:module quantum-cloud
+  :components ((:module quantum-cloud
                 :components ((:module ibm-quantum
+                              :serial t
                               :components ((:file "package")
                                            (:file "objects")
                                            (:file "request-methods")))))
